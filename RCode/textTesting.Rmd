@@ -1,0 +1,109 @@
+---
+title: "Text Testing"
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(tm)
+```
+# Symptoms
+
+Read in the symptoms text, then remove stopwords, punctuation, turn it into 
+lower case, and remove whitespace. Output the text as a new, cleaned up file. 
+```{r, echo=TRUE}
+# Read in the data. 
+txt <- "data/"
+symptoms <- VCorpus(DirSource("data/", encoding="UTF-8"), readerControl=list(language="english"))
+```
+
+```{r, echo=TRUE}
+# Define a function that will help remove any hyphens and other special chars. 
+removeSpecialChars <- function(x) gsub("[^a-zA-Z0-9 ]","",x)
+```
+
+```{r, echo=TRUE}
+# Clean it up. 
+symptoms <- tm_map(symptoms, removeWords, stopwords("english"))
+symptoms <- tm_map(symptoms, removePunctuation)
+symptoms <- tm_map(symptoms, content_transformer(removeSpecialChars))
+symptoms <- tm_map(symptoms, content_transformer(tolower))
+symptoms <- tm_map(symptoms, stripWhitespace)
+
+writeCorpus(symptoms, path="data/", filenames=c("Acute_Coronary_Syndromes_clean.txt", "Arterial_Hypertension_clean.txt", "Atherosclerosis_clean.txt", "Coronary_Artery_Disease_clean.txt", "Hypertensive_Emergencies_clean.txt"))
+```
+
+Read in the appendix text file, and remove any extra lines of text like page 
+headers, letter headers. Then remove any parentheticals (these are usually like
+'see page 52'), then remove any numbers and punctuation. Then, look for the 
+lines starting with uppercase letters only; these are the main terms and are
+the ones to be kept for now. 
+
+```{r, echo=TRUE}
+# Read in the appendix and strip any white space
+appendix_dir = "appendix_data/"
+appendix <- VCorpus(DirSource(appendix_dir, encoding="UTF-8"), readerControl=list(language="english"))
+symptoms <- tm_map(symptoms, stripWhitespace)
+```
+
+```{r, echo=TRUE}
+# Remove headers and section headings: 
+for (i in 1:length(appendix[[1]]$content)) {
+  # If the line is length 1, it's a section heading.
+  if (nchar(appendix[[1]]$content[[i]]) == 1) {
+    appendix[[1]]$content[[i]] <- "\n"
+  }
+  
+  # If the line includes the page heading text, remove it. 
+  if (appendix[[1]]$content[[i]] == "The Merck Manual of Diagnosis & Therapy, 19th Edition" || appendix[[1]]$content[[i]] =="\fThe Merck Manual of Diagnosis & Therapy, 19th Edition") {
+    appendix[[1]]$content[[i]] <- "\n"
+  }
+}
+```
+
+```{r, echo=TRUE}
+# Remove parentheticals, like '(see page 72)'
+for (i in 1:length(appendix[[1]]$content)) {
+  appendix[[1]]$content[[i]] <- gsub("\\s*\\([^\\)]+\\)","",appendix[[1]]$content[[i]])
+}
+
+# Clean up the appendix by removing page numbers and punctuation
+appendix <- tm_map(appendix, removeNumbers)
+appendix <- tm_map(appendix, removePunctuation)
+symptoms <- tm_map(symptoms, stripWhitespace)
+```
+
+
+```{r, echo=TRUE}
+# Output the file. 
+writeCorpus(appendix, path="appendix_data/", filenames=c("full_appendix_clean.txt", "sample_appendix_clean.txt"))
+```
+
+```{r, echo=TRUE}
+# Function to grab the main terms from appendix. 
+getSymptomsFromAppendix = function(filepath, writepath) {
+  read_con = file(filepath, "r")
+  write_con = file(writepath, "w")
+  
+  while ( TRUE ) {
+    line = readLines(read_con, n = 1)
+    if ( length(line) == 0 ) {
+      break
+    }
+    
+    # Check if the term is capitalized. 
+    if (grepl("^[[:upper:]]+$", substr(line, 1, 1))) { 
+      writeLines(tolower(line), write_con)
+    }
+  }
+  close(read_con)
+  close(write_con)
+}
+```
+
+```{r, echo=TRUE}
+# Take only the main terms. 
+getSymptomsFromAppendix("appendix_data/sample_appendix_clean.txt", "appendix_data/sample_appendix_sorted.txt")
+getSymptomsFromAppendix("appendix_data/full_appendix_clean.txt", "appendix_data/full_appendix_sorted.txt")
+```
+
