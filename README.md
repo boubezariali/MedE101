@@ -10,3 +10,38 @@ Additional CSVs and other scraped data sources. As we refine the data scraping p
 
 ### literature
 Raw data sources - textbooks, case studies.
+
+## Set up
+### Set up Ubuntu for windows:
+Go to Settings -> Update & Security -> For Developers and enable Developer Mode. Click Yes in the alert box.
+
+Once you enable Developer Mode, now go to: Control Panel -> Programs -> Turn Windows features on or off. Search for Windows Subsystem for Linux and enable it. This will install necessary components in your system. You may have to restart your system.
+
+After you restart, go to Microsoft Store and search for Ubuntu. Install this app.
+
+Once Ubuntu is installed in your system, open it (just search for it in start menu). When it opens for the first time, it will download necessary files and will ask you to create a username and a password. This does not need to match your Windows password. Remember this username and password as this will be the root user and needed to install anything inside Ubuntu.
+
+Now you are inside Ubuntu land. You can run linux command line applications such as vi, git, apt-get, etc.
+
+### Set up bazel for Ubuntu: 
+Follow the steps on this link, pasted below for convenience: https://docs.bazel.build/versions/master/install-ubuntu.html
+
+Run the following: 
+```
+sudo apt install curl gnupg
+curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > bazel.gpg
+sudo mv bazel.gpg /etc/apt/trusted.gpg.d/
+echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
+```
+
+```
+sudo apt update && sudo apt install bazel
+```
+
+```
+sudo apt update && sudo apt full-upgrade
+```
+
+```
+sudo apt install bazel-1.0.0
+```
