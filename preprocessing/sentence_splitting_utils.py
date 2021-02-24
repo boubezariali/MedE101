@@ -1,5 +1,6 @@
 # Utility file for splitting sentences. 
 import re
+import nltk.data
 
 # Regex representations (utf-8 encoded). 
 alphabets= "([A-Za-z])"
@@ -34,3 +35,9 @@ def split_into_sentences_regex(text):
     sentences = sentences[:-1]
     sentences = [s.strip() for s in sentences]
     return sentences
+
+def split_into_sentences_nltk(filename): 
+    tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+    fp = open(filename)
+    data = fp.read()
+    return '\n-----\n'.join(tokenizer.tokenize(data))
