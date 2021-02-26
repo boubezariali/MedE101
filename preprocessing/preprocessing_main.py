@@ -1,4 +1,5 @@
 """ Binary to preprocess medical literature. 
+Example usage: bazel-bin/preprocessing/preprocessing_main --input_file=RCode/data/Acute_Coronary_Syndromes.txt --output_file=preprocessing/test.txt --split_method=regex
 """
 from preprocessing.sentence_splitting_utils import *
 import argparse
