@@ -45,3 +45,13 @@ sudo apt update && sudo apt full-upgrade
 ```
 sudo apt install bazel-1.0.0
 ```
+### Set up with Black:
+Black is a python code formatting tool that can be used from the command line: https://black.readthedocs.io/en/stable/ 
+To get black just use pip: 
+```
+pip install black
+```
+To format code, say a file `sample.py`, run the command: 
+```
+`black sample.py`
+```
