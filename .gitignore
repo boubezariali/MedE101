@@ -1,5 +1,2 @@
 *.swp
-bazel-MedE101/
-bazel-bin/
-bazel-out/
-bazel-testlogs/
+bazel-*
