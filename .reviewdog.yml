@@ -1,13 +1,4 @@
 runner:
-  <tool-name>:
-    cmd: <command> # (required)
-    errorformat: # (optional if you use `format`)
-      - <list of errorformat>
-    format: <format-name> # (optional if you use `errorformat`. e.g. golint,rdjson,rdjsonl)
-    name: <tool-name> # (optional. you can overwrite <tool-name> defined by runner key)
-    level: <level> # (optional. same as -level flag. [info,warning,error])
-
-  # examples
   pylint:
     cmd: pylint ./...
     errorformat:
