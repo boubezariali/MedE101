@@ -1,5 +1,5 @@
 runner:
   pylint:
-    cmd: pylint ./...
+    cmd: pylint ./**/*.py
     format: pep8
     level: warning
