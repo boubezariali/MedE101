@@ -30,5 +30,6 @@ jobs:
           python-version: '3.8.5'
       - uses: wemake-services/wemake-python-styleguide@0.15.2
         with:
+          level: warning
           # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
           reporter: github-pr-review
