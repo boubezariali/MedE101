@@ -1,6 +1,6 @@
 runner:
   pylint:
-    cmd: pylint ./...
+    cmd: pylint ./preprocessing/preprocessing_main.py
     errorformat:
       - "%f:%l:%c: %m"
     level: warning
