@@ -22,6 +22,6 @@ jobs:
 
       # Run Pylint formatting
       - name: GitHub Action for pylint
-        args = "pip install -r requirements.txt ; pylint **/*.py" 
+        run: pip install -r requirements.txt ; pylint **/*.py
         uses: cclauss/GitHub-Action-for-pylint@0.7.0
 
