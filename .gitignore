@@ -1,3 +1,4 @@
 *.swp
 bazel-*
 TEST*
+bin/*

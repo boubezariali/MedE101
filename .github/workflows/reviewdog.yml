@@ -1,0 +1,20 @@
+name: ReviewDog
+
+# Run this workflow every time a new commit pushed to your repository
+on: push
+
+jobs:
+  # Run Pylinter formatter
+  pylinter:
+    name: Lint code base
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Run Pylint formatting
+      - name: ReviewDog
+        uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest # Optional. [latest,nightly,v.X.Y.Z]
