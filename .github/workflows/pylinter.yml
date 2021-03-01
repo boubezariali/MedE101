@@ -14,4 +14,4 @@ jobs:
       - name: GitHub Action for pylint
         uses: cclauss/GitHub-Action-for-pylint@0.7.0
         with:
-            args: "pip install -r requirements.txt ; pylint **/*.py"
+            args: "pip install -r $GITHUB_WORKSPACE/requirements.txt ; pylint **/*.py"
