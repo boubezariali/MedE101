@@ -9,6 +9,7 @@ import argparse
 
 from preprocessing import sentence_splitting_utils
 from preprocessing import string_cleaning_utils
+from file_utils.delimeted_file import DelimetedFile
 
 
 def main():
@@ -21,7 +22,7 @@ def main():
     )
     parser.add_argument("--input_file", type=str, help="Path of file to process.")
     parser.add_argument(
-        "--output_file", type=str, default="preprocessing/test.txt", help="Output location of processed text."
+        "--output_file", type=str, default="preprocessing/TEST_preprocessing_main_output.txt", help="Output location of processed text."
     )
     args = parser.parse_args()
     assert args.input_file is not None, "Input file must be non-empty"
@@ -36,18 +37,22 @@ def main():
     else:
         raise ValueError("Invalid option {}.".format(args.split_method))
 
+    # Get the punctuation and stopwords to remove.
     punctuation = string_cleaning_utils.get_punctuation() 
     stopwords = string_cleaning_utils.get_stopwords() 
-    
+    # Tokenize into individual words. 
     tokenized_data = [string_cleaning_utils.word_tokenize(s) for s in split_data]
+    # Remove punctuation.
     tokenized_data = [string_cleaning_utils.remove_stopstrings(lst, punctuation) for lst in tokenized_data]
+    # Remove stopwords
     tokenized_data = [string_cleaning_utils.remove_stopstrings(lst, stopwords) for lst in tokenized_data]
-
-    # Write out the sentences, one per line to the output file. 
-    with open(args.output_file, "w") as f:
-        for s in tokenized_data: 
-            line = ','.join(s)
-            f.write(line + '\n')
+    # Join the sentences with commas.
+    tokenized_data = [",".join(lst) for lst in tokenized_data]
+    
+    # Write the list of sentences to disk.
+    df = DelimetedFile(args.output_file, overwrite=True)
+    df.add(tokenized_data)
+    df.write()
 
 if __name__ == "__main__":
     main()
