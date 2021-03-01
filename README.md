@@ -1,5 +1,11 @@
 # MedE101
 
+## Pushing to main
+
+Set up a uniquely laveled branch e.g. `firstnamelastname/name_of_branch` (I like to do `aboubezari/branch_name`). When pushing, run the following: 
+```git push -u origin your_branch_name```
+Open a PR at the link provided, review your code, and merge if code checks pass.
+
 ## Data Sources
 
 ### main_data
