@@ -4,7 +4,7 @@ name: PyLinter
 on: push
 
 jobs:
-  # Run SuperLint code stability check
+  # Run Pylinter formatter
   pylinter:
     name: Lint code base
     runs-on: ubuntu-latest
@@ -13,3 +13,5 @@ jobs:
       # Run Pylint formatting
       - name: GitHub Action for pylint
         uses: cclauss/GitHub-Action-for-pylint@0.7.0
+        with:
+            args: "pip install -r requirements.txt ; pylint **/*.py"
