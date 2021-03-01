@@ -1,7 +1,7 @@
 """ Utility file for splitting sentences. 
 """
 import re
-import nltk.data
+import nltk
 
 
 def split_into_sentences_regex(text):
@@ -52,7 +52,7 @@ def split_into_sentences_regex(text):
 
 
 def split_into_sentences_nltk(text):
-    """Split into sentences using nltk tokenizer..
+    """Split into sentences using nltk tokenizer.
     :param text: a string to split into sentences.
     :return: list of sentences.
     """
