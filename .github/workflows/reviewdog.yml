@@ -20,3 +20,15 @@ jobs:
           # Change the current directory to run mypy command.
           # mypy command reads setup.cfg or other settings file in this path.
           workdir:
+  mypy:
+    name: wemake
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8.5'
+      - uses: wemake-services/wemake-python-styleguide@0.15.2
+        with:
+          # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
+          reporter: github-pr-review
