@@ -2,7 +2,7 @@
 
 ## Pushing to main
 
-Set up a uniquely laveled branch e.g. `firstnamelastname/name_of_branch` (I like to do `aboubezari/branch_name`). When pushing, run the following: 
+Set up a uniquely labeled branch e.g. `firstnamelastname/name_of_branch` (I like to do `aboubezari/branch_name`). When pushing, run the following: 
 ```
 git push -u origin your_branch_name
 ```
