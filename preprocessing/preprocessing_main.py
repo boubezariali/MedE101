@@ -1,15 +1,14 @@
 """ Binary to preprocess medical literature. 
 
-Example usage: bazel-bin/preprocessing/preprocessing_main 
-                --input_file=RCode/data/Acute_Coronary_Syndromes.txt 
-                --output_file=preprocessing/test.txt 
+Example usage: bazel-bin/preprocessing/preprocessing_main
+                --input_file=RCode/data/Acute_Coronary_Syndromes.txt
+                --output_file=preprocessing/test.txt
                 --split_method=regex
 """
 import argparse
 
-from preprocessing import sentence_splitting_utils
-from preprocessing import string_cleaning_utils
 from file_utils.delimeted_file import DelimetedFile
+from preprocessing import sentence_splitting_utils, string_cleaning_utils
 
 
 def main():
