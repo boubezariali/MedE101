@@ -12,7 +12,7 @@ from preprocessing import sentence_splitting_utils, string_cleaning_utils
 
 
 def main():
-    p:arsi..er = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser()
     parser.add_argument(
         "--split_method",
         type=str,
