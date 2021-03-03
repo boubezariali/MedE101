@@ -31,7 +31,7 @@ class DelimetedFile:
                 self._lst = txt.split(DELIMETER)
 
     def write(self):
-        """ Write any data stored in the object to disk."""
+        """Write any data stored in the object to disk."""
         with open(self.path, 'w') as file_py:
             txt = DELIMETER.join(self._lst)
             file_py.write(txt)
