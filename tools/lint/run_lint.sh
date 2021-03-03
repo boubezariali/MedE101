@@ -1,3 +1,3 @@
 #!/usr/bin/bash
-black .
+black -S */**.py
 isort */**.py

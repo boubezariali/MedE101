@@ -2,7 +2,7 @@ import os
 
 import numpy as np
 
-DELIMETER = "@@"
+DELIMETER = '@@'
 
 
 class DelimetedFile:
@@ -21,18 +21,18 @@ class DelimetedFile:
                 filepath or not. Setting this to true will reset the file and
                 any data will be lost.
         """
-        assert os.path.isfile, "Input a valid file path."
+        assert os.path.isfile, 'Input a valid file path.'
         self.path = path
         self._lst = []
 
         if os.path.exists(path) and not overwrite:
-            with open(path, "r") as file_py:
+            with open(path, 'r') as file_py:
                 txt = file_py.read()
                 self._lst = txt.split(DELIMETER)
 
     def write(self):
-        """ Write any data stored in the object to disk."""
-        with open(self.path, "w") as file_py:
+        """Write any data stored in the object to disk."""
+        with open(self.path, 'w') as file_py:
             txt = DELIMETER.join(self._lst)
             file_py.write(txt)
 
