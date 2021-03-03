@@ -2,6 +2,13 @@
 
 ## Pushing to main
 
+### Formatting
+Automatic formatting tools will help keep the codebase consistent. Run the following command to fix up formatting issues: 
+```
+tools/lint/run_lint.sh
+```
+
+### Creating a PR
 Set up a uniquely labeled branch e.g. `firstnamelastname/name_of_branch` (I like to do `aboubezari/branch_name`). When pushing, run the following: 
 ```
 git push -u origin your_branch_name
@@ -52,14 +59,4 @@ sudo apt update && sudo apt full-upgrade
 
 ```
 sudo apt install bazel-1.0.0
-```
-### Set up with Black:
-Black is a python code formatting tool that can be used from the command line: https://black.readthedocs.io/en/stable/ 
-To get black just use pip: 
-```
-pip install black
-```
-To format code, say a file `sample.py`, run the command: 
-```
-`black sample.py`
 ```
