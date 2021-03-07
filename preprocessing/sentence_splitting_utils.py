@@ -58,4 +58,4 @@ def split_into_sentences_nltk(text):
     :return: list of sentences.
     """
     tokenizer = nltk.data.load("tokenizers/punkt/english.pickle")
-    return "\n-----\n".join(tokenizer.tokenize(text))
+    return tokenizer.tokenize(text)

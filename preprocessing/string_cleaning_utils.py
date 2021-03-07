@@ -10,8 +10,10 @@ PUNCTUATION_FILE = "preprocessing/punctuation.txt"
 
 def word_tokenize(string):
     """Tokenize a string into individual words.
-    :param string: str
-    :returns: list of strings
+    Args:
+        param string: str
+    Returns:
+        list of strings
     """
     return nltk.tokenize.word_tokenize(string)
 

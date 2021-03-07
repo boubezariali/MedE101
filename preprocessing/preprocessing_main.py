@@ -59,8 +59,11 @@ def main():
         for lst in tokenized_data
     ]
 
+    # Join the words to avoid a ragged array.
+    joined_data = np.array([','.join(lst) for lst in tokenized_data])
+
     # Write the list of sentences to disk.
-    array_io_utils.write_array(args.output_file, tokenized_data)
+    array_io_utils.write_array(args.output_file, joined_data)
     
     log.info("Successfully processed output to {}".format(args.output_file))
 
