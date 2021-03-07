@@ -31,7 +31,7 @@ jobs:
       - uses: wemake-services/wemake-python-styleguide@0.15.2
         with:
           # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
-          reporter: github-pr-check
+          reporter: github-pr-review
         env:  
           GITHUB_TOKEN: ${{ secrets.github_token }}
        
