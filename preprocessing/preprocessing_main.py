@@ -1,13 +1,16 @@
 """ Binary to preprocess medical literature. 
 
 Example usage: bazel-bin/preprocessing/preprocessing_main
-                --input_file=RCode/data/Acute_Coronary_Syndromes.txt
-                --output_file=preprocessing/test.txt
-                --split_method=regex
+                --input_file=extra_data/Acute_Coronary_Syndromes.txt
+                --output_file=preprocessing/TEST_preprocessing_main.txt
+                --split_method=nltk
 """
 import argparse
 
-from file_utils.delimeted_file import DelimetedFile
+import glog as log
+import numpy as np
+
+from file_utils.array_io_utils import write_array
 from preprocessing import sentence_splitting_utils, string_cleaning_utils
 
 
@@ -16,7 +19,7 @@ def main():
     parser.add_argument(
         "--split_method",
         type=str,
-        default="regex",
+        default="nltk",
         help="Sentence splitting method to use. Can be regex or nltk",
     )
     parser.add_argument("--input_file", type=str, help="Path of file to process.")
@@ -28,6 +31,8 @@ def main():
     )
     args = parser.parse_args()
     assert args.input_file is not None, "Input file must be non-empty"
+
+    log.info("Processing {}".format(args.input_file))
 
     # Read the file and split it.
     with open(args.input_file, "r") as f:
@@ -54,13 +59,14 @@ def main():
         string_cleaning_utils.remove_stopstrings(lst, stopwords)
         for lst in tokenized_data
     ]
-    # Join the sentences with commas.
-    tokenized_data = [",".join(lst) for lst in tokenized_data]
+
+    # Join the words to avoid a ragged array.
+    joined_data = np.array([','.join(lst) for lst in tokenized_data])
 
     # Write the list of sentences to disk.
-    df = DelimetedFile(args.output_file, overwrite=True)
-    df.add(tokenized_data)
-    df.write()
+    write_array(args.output_file, joined_data)
+
+    log.info("Successfully processed output to {}".format(args.output_file))
 
 
 if __name__ == "__main__":

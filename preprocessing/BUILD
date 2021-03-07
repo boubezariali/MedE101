@@ -1,3 +1,5 @@
+package(default_visibility = ["//visibility:public"])
+
 py_library (
     name = "sentence_splitting_utils", 
     srcs = ["sentence_splitting_utils.py"]
@@ -9,7 +11,7 @@ py_binary (
     deps = [
         ":sentence_splitting_utils",
         ":string_cleaning_utils",
-        "//file_utils:delimeted_file",
+        "//file_utils:array_io_utils",
     ]
 )		
 
@@ -18,7 +20,7 @@ py_library (
     srcs = ["string_cleaning_utils.py"], 
     data = [":stopwords"],
     deps = [
-        "//file_utils:delimeted_file",
+        "//file_utils:array_io_utils",
     ]
 )
 

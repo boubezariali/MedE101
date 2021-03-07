@@ -1,5 +1,5 @@
 name: reviewdog
-on: [pull_request]
+on: [push]
 jobs:
   mypy:
     name: runner / mypy
@@ -13,7 +13,7 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
-          reporter: github-pr-review
+          reporter: github-check
           # Change reporter level if you need.
           # GitHub Status Check won't become failure with warning.
           level: warning
@@ -31,7 +31,7 @@ jobs:
       - uses: wemake-services/wemake-python-styleguide@0.15.2
         with:
           # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
-          reporter: github-pr-check
+          reporter: github-pr-review
         env:  
           GITHUB_TOKEN: ${{ secrets.github_token }}
        
