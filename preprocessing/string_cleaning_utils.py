@@ -2,9 +2,9 @@
 """
 import nltk
 
-from file_utils.delimeted_file import DelimetedFile
+from file_utils import array_io_utils
 
-STOP_WORDS_FILE = "preprocessing/stopwords.txt"
+STOPWORDS_FILE = "preprocessing/stopwords.txt"
 PUNCTUATION_FILE = "preprocessing/punctuation.txt"
 
 
@@ -27,11 +27,11 @@ def remove_stopstrings(strings, stopstrings):
 
 def get_stopwords():
     """Get the global list of english stopwords from the predetermined file."""
-    df = DelimetedFile(STOP_WORDS_FILE)
-    return set(df.lst)
+    array = array_io_utils.lined_file_to_array(STOPWORDS_FILE)
+    return set(array)
 
 
 def get_punctuation():
     """Get the global list of punctuation from the predetermined file."""
-    df = DelimetedFile(PUNCTUATION_FILE)
-    return set(df.lst)
+    array = array_io_utils.lined_file_to_array(PUNCTUATION_FILE)
+    return set(array)

@@ -1,6 +1,6 @@
 package(default_visibility = ["//visibility:public"])
 
-py_library (
-    name = "delimeted_file", 
-    srcs = ["delimeted_file.py"],
+py_library(
+    name = "array_io_utils",
+    srcs = ["array_io_utils.py"],
 )
