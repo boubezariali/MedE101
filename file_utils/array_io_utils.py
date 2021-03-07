@@ -2,60 +2,60 @@ import numpy as np
 import pandas as pd
 
 
-def read_array(path, delimiter=","):
-    """Reads data from csv file into numpy array.
+def read_array(path, sep=','):
+    """Read data from csv file into numpy array.
 
     Args:
-        param path: File path to read from. Should be a .npy/npz.
-        param delimiter: One character string to delimit the file with.
+        path: File path to read from. Should be a .npy/npz.
+        sep: One character string to delimit the file with.
     Returns:
         Numpy array of read data.
     """
-    df = pd.read_csv(path, delimiter=delimiter)
+    df = pd.read_csv(path, sep=sep)
     return df.to_numpy()
 
 
 def read_dataframe(path, sep=','):
-    """Reads data from csv file into pandas dataframe.
+    """Read data from csv file into pandas dataframe.
 
     Args:
-        param path: File path to read from.
-        param delimiter: One character string to delimit the file with.
+        path: File path to read from.
+        sep: One character string to delimit the file with.
     Returns:
         Pandas dataframe of read data.
     """
-    df = pd.read_csv(path, delimiter=delimiter)
+    df = pd.read_csv(path, sep=sep)
     return df
 
 
 def write_array(path, array, sep=','):
-    """Writes an array to disk.
+    """Write an array to disk.
 
     Args:
-        param path: Path to write to.
-        param array: Numpy array or python list to write to disk.
-        param delimiter: One character string to delimit the file with.
+        path: Path to write to.
+        array: Numpy array or python list to write to disk.
+        sep: One character string to delimit the file with.
     """
     df = pd.DataFrame(array)
     df.to_csv(path, index=False, sep=',')
 
 
-def write_dataframe(path, df, delimiter=','):
-    """Writes a Pandas Dataframe to disk.
+def write_dataframe(path, df, sep=','):
+    """Write a Pandas Dataframe to disk.
 
     Args:
-        param path: Path to write to.
-        param df: Pandas dataframe to write to.
-        param delimiter: One character string to delimit the file with.
+        path: Path to write to.
+        df: Pandas dataframe to write to.
+        sep: One character string to delimit the file with.
     """
     df.to_csv(path, index=False, sep=',')
 
 
 def lined_file_to_array(path):
-    """Reads a file split by newlines into a numpy array.
+    """Read a file split by newlines into a numpy array.
 
     Args:
-        param path: The delimited text file to read from.
+        path: The delimited text file to read from.
     Returns:
         Numpy array containing split data.
     """
@@ -66,10 +66,10 @@ def lined_file_to_array(path):
 
 
 def lined_file_to_df(path):
-    """Reads a file split by newlines into a numpy array.
+    """Read a file split by newlines into a numpy array.
 
     Args:
-        param path: The delimited text file to read from.
+        path: The delimited text file to read from.
     Returns:
         Pandas dataframe containing split data.
     """
