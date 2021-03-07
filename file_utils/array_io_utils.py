@@ -14,6 +14,7 @@ def read_array(path, delimiter=","):
     df = pd.read_csv(path, delimiter=delimiter)
     return df.to_numpy()
 
+
 def read_dataframe(path, sep=','):
     """Reads data from csv file into pandas dataframe.
 
@@ -26,6 +27,7 @@ def read_dataframe(path, sep=','):
     df = pd.read_csv(path, delimiter=delimiter)
     return df
 
+
 def write_array(path, array, sep=','):
     """Writes an array to disk.
 
@@ -37,6 +39,7 @@ def write_array(path, array, sep=','):
     df = pd.DataFrame(array)
     df.to_csv(path, index=False, sep=',')
 
+
 def write_dataframe(path, df, delimiter=','):
     """Writes a Pandas Dataframe to disk.
 
@@ -46,6 +49,7 @@ def write_dataframe(path, df, delimiter=','):
         param delimiter: One character string to delimit the file with.
     """
     df.to_csv(path, index=False, sep=',')
+
 
 def lined_file_to_array(path):
     """Reads a file split by newlines into a numpy array.
@@ -59,6 +63,7 @@ def lined_file_to_array(path):
         txt = f.read()
         lines = txt.splitlines()
         return np.array(lines)
+
 
 def lined_file_to_df(path):
     """Reads a file split by newlines into a numpy array.

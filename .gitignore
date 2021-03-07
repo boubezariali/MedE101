@@ -1,4 +1,5 @@
 *.swp
+*.swo
 bazel-*
 TEST*
 bin/*

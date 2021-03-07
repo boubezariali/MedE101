@@ -6,10 +6,11 @@ Example usage: bazel-bin/preprocessing/preprocessing_main
                 --split_method=nltk
 """
 import argparse
-import numpy as np
-import glog as log
 
-from file_utils import array_io_utils 
+import glog as log
+import numpy as np
+
+from file_utils.array_io_utils import write_array
 from preprocessing import sentence_splitting_utils, string_cleaning_utils
 
 
@@ -63,8 +64,8 @@ def main():
     joined_data = np.array([','.join(lst) for lst in tokenized_data])
 
     # Write the list of sentences to disk.
-    array_io_utils.write_array(args.output_file, joined_data)
-    
+    write_array(args.output_file, joined_data)
+
     log.info("Successfully processed output to {}".format(args.output_file))
 
 
