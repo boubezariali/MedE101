@@ -86,7 +86,19 @@ def add_line_to_file(path, line, sep='\n'):
         line: represented by 1D list or array
         path: the text file to write to
     """
-    string = ','.join(str(item) for item in line) + '\n'
+    string = ','.join(str(item) for item in line) + sep
     with open(path, 'a') as f:
         f.write(string)
-    
+
+def csv_to_list(path, sep=","):
+    """Read CSV into simple list of the separated values.
+    Args:
+        path: path of CSV file
+    Returns:
+        list of separated values
+    """
+    with open(path, newline='') as f:
+        reader = csv.reader(f)
+        data = list(reader)
+        return data[0]
+
