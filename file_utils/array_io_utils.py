@@ -78,3 +78,15 @@ def lined_file_to_df(path):
         lines = txt.splitlines()
         df = pd.DataFrame(np.array(lines))
         return df
+
+def add_line_to_file(path, line, sep='\n'):
+    """Append a single line to a file, default newline-separated
+
+    Args:
+        line: represented by 1D list or array
+        path: the text file to write to
+    """
+    string = ','.join(str(item) for item in line) + '\n'
+    with open(path, 'a') as f:
+        f.write(string)
+    
