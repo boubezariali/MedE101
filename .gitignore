@@ -4,3 +4,4 @@ bazel-*
 TEST*
 bin/*
 test/*
+__pycache__/*
