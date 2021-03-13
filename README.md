@@ -15,6 +15,18 @@ git push -u origin your_branch_name
 ```
 Open a PR at the link provided, review your code, and merge if code checks pass.
 
+### Merging main with your PR
+Try not to use the `git pull` and `git merge` method unless there is a explicit code conflict with your branch and main that needs to be resolved before pushing. If no one else is editing the same files as you, then it's best to perform a rebase: 
+```
+git checkout main
+git fetch
+git reset --hard origin/main
+git checkout your_branch
+git rebase main
+git push -f origin your_branch
+```
+Make sure that all your changes are committed before you do this process, and note you will lose all local changes that you made to main (because of the `git reset`).
+
 ## Data Sources
 
 ### main_data
