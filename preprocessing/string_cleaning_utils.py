@@ -24,9 +24,21 @@ def remove_stopstrings(strings, stopstrings):
         param strings: list of input strings to clean
         param stopstrings: list of stopstrings to check against.
     Returns:
-        returns: list of strings
+        list of strings
     """
     return [s for s in strings if s not in stopstrings]
+
+def remove_stopchars(strings, stopchars):
+    """Removes a list of characters from the words, modifying the words
+    themselves. 
+    Args:
+        param strings: list of input strings to clean.
+        param stopchars: list of strings to check for in the words.
+    Returns:
+        list of strings
+    """
+    stopchars_string = '(\s+|' + '|'.join(stopchars) + ')'
+    return [Regex.Replace(s, @stopchars_string, '')]
 
 
 def get_stopwords():

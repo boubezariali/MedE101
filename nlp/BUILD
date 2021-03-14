@@ -12,3 +12,11 @@ py_binary (
     deps = [":pattern_match_utils"],
 )
 
+py_library (
+    name = "fuzzy_finder",
+    srcs = ["fuzzy_finder.py"],
+    deps = [
+        "//file_utils:array_io_utils",
+        "//preprocessing:string_cleaning_utils",
+    ],
+)

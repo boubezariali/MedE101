@@ -29,7 +29,6 @@ itself
 other
 off
 is
-s
 am
 or
 who
@@ -105,7 +104,6 @@ i
 after
 few
 whom
-t
 being
 if
 theirs
