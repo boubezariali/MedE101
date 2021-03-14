@@ -28,9 +28,8 @@ TODO: incorporate negation detection
 import argparse
 
 import file_utils.array_io_utils as utils
-from nlp.pattern_match_utils import (load_tags,
-                                               pattern_match_keyword,
-                                               pattern_match_window)
+from nlp.pattern_match_utils import (load_tags, pattern_match_keyword,
+                                     pattern_match_window)
 
 
 def main():
