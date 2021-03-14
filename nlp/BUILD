@@ -7,8 +7,8 @@ py_library(
 )
 
 py_binary (
-    name = "pattern_match",
-    srcs = ["pattern_match.py"],
+    name = "pattern_match_main",
+    srcs = ["pattern_match_main.py"],
     deps = [":pattern_match_utils"],
 )
 
