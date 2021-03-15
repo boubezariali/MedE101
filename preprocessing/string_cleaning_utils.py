@@ -1,6 +1,7 @@
 """ Utility files for cleaning strings. 
 """
 import nltk
+import string
 
 from file_utils.array_io_utils import lined_file_to_array
 
@@ -37,9 +38,8 @@ def remove_stopchars(strings, stopchars):
     Returns:
         list of strings
     """
-    stopchars_string = '(\s+|' + '|'.join(stopchars) + ')'
-    return [Regex.Replace(s, @stopchars_string, '')]
-
+    stopchars_str = ''.join(stopchars)
+    return [s.translate(str.maketrans('', '', stopchars_str)) for s in strings]
 
 def get_stopwords():
     """Get the global list of english stopwords from the predetermined file."""
