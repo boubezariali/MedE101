@@ -1,8 +1,9 @@
 import pandas as pd
 from rake_nltk import Rake
-
 import file_utils.array_io_utils as utils
 
+CLAUSE_PUNCT = [',', '.', ';', ] # Identifiy clausal breaks
+NEG_WORDS = list(utils.lined_file_to_array('nlp/negation_words.txt')) # Negation words
 
 def load_tags(tag_file='main_data/scraped_clinical_keywords.csv'):
     """
@@ -33,7 +34,8 @@ def pattern_match_window(text, tags, label, output_path, w=4):
     # For each sentence in the array
     for line in text:
         # Break sentence by space
-        sentence = line[0].split(" ")
+        sentence = line.split(" ")
+        sentence = mark_negation(sentence)
 
         # Slide windows size 1...w
         for k in range(0, w + 1):
@@ -41,7 +43,6 @@ def pattern_match_window(text, tags, label, output_path, w=4):
             right = k
             while right < len(sentence) + 1:
                 phrase = " ".join(sentence[left:right])
-                # print(phrase)
                 if phrase in tags:
                     datapoint[tags[phrase]] = 1
                 left += 1
@@ -79,3 +80,33 @@ def pattern_match_keyword(text, tags, label, output_path):
 
     # Add datapoint to training data file
     utils.add_line_to_file(output_path, datapoint)
+
+def mark_negation(sentence):
+    """
+    Marks words that are negated in meaning. Double negatives are positive.
+    Inputs:
+      - sentence: list of words representing split sentence
+      - verbose: print negated sentence output
+    Output:
+      - sentence with negated words suffixed by "_NEG"
+    Example input: ["she", "did", "not", "feel", "pain"]
+    Example output: ["she", "did", "not", "feel_NEG", "pain_NEG"]
+    """
+    scope_is_neg = False
+    for i, word in enumerate(sentence):
+        # If negation word, then negation scope flips
+        if word in NEG_WORDS:
+            scope_is_neg = not scope_is_neg
+
+        # If new clause, then negation scope resets to false
+        elif word in CLAUSE_PUNCT:
+            scope_is_neg = False
+        
+        # While negation scope is true, words are negated
+        else:
+            if scope_is_neg:
+                print("neg_scope:", sentence[i])
+                sentence[i] += "_NEG"
+    return sentence
+
+            
