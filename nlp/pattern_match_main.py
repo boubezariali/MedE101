@@ -1,11 +1,11 @@
 '''
 Generate training data from preprocessed medical text, via pattern-matching.
 
-Example usage: bazel-bin/nlp_functions/pattern_match
-                --input_text=nlp_functions/sample_text.csv 
+Example usage: bazel-bin/nlp/pattern_match
+                --input_text=nlp/sample_text.csv 
                 --label="heart disease"
-                --tags=nlp_functions/sample_tags.csv
-                --output=dummyoutput.txt
+                --tags=nlp/sample_tags.csv
+                --output=nlp/dummyoutput.txt
                 --method=window
                 --wsize=3
 After running, you should see an additional line added to the training data output
