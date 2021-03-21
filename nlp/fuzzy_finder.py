@@ -1,49 +1,78 @@
 from file_utils.array_io_utils import read_array
 from preprocessing.string_cleaning_utils import get_stopwords, get_punctuation, remove_stopstrings, remove_stopchars, stem
 from fuzzyset import FuzzySet
+import stanza
+import re
 
 import glog
-import pandas as pd
 
 class FuzzyFinder: 
 
     CLINICAL_FEATURES_FILE = 'main_data/clinical_keywords.csv'
 
     def __init__(self, features=CLINICAL_FEATURES_FILE):
-        self.contents = [] 
+        self.contents_ = [] 
         array = read_array(features)
-        stopwords = get_stopwords()
-        punctuation = get_punctuation()
+        self.stopwords_ = get_stopwords()
+        self.punctuation_ = get_punctuation()
         glog.info("Read data complete.")
         for elem in array:
             words = elem[0].split(" ")  
-            words = remove_stopstrings(words, stopwords)
-            words = [remove_stopchars(word, punctuation) for word in words]
+            words = remove_stopstrings(words, self.stopwords_)
+            words = [remove_stopchars(word, self.punctuation_) for word in words]
             words = [stem(word) for word in words]
-            self.contents.append(set(words))
+            self.contents_.append(set(words))
         glog.info("Load data complete.")
 
-    def get_features_from_sentence(self, sentence):
-        sentence = [stem(word) for word in sentence]
-        print(sentence)
-        fuzzy_set = FuzzySet(sentence)
+    def get_mimic_features(self, text):    
+        stanza.download('en', package='mimic', processors={'ner' : 'i2b2'})
+        nlp = stanza.Pipeline('en', package='mimic', processors={'ner' : 'i2b2',})
+        doc = nlp(text)
         result = []
-        for elem in self.contents:
-            valid_feature = True
-            for word in elem:
-                score = fuzzy_set.get(word)
-                if score is None or score[0][0] < 0.75:
-                    valid_feature = False
-                    break
-            if valid_feature:
-                result.append(elem)
+
+    
+        # Loop through all the entities found in the text.
+        for ent in doc.entities:
+            # Construct a set of cleaned words from entity.
+            words = ent.text.split(' ')
+            words = remove_stopstrings(words, self.stopwords_)
+            words = [remove_stopchars(word, self.punctuation_) for word in words]
+            words = [stem(word) for word in words]
+            words_set = set(words)
+            
+            # Loop through all our stored clinical features.
+            for feature in self.contents_:
+                # Check that all the words in the feature are in the set.
+                valid_feature = True
+                for word in feature:
+                    if word not in words_set:
+                        valid_feature = False
+                # If all words are found then this is likley to be a valid feature.
+                if valid_feature and len(feature) > 0:
+                    result.append((feature, ent.text))
         return result
-                
-                
 
-                
-        
+    def get_windowed_features(self, text):
+        stanza.download('en', processors='tokenize')
+        nlp = stanza.Pipeline('en', processors='tokenize')
+        doc = nlp(text)
+        sentences = [sentence.text for sentence in doc.sentences]
+        result = []
 
+        for sentence in sentences:
+            clauses = re.split(';|,', sentence)
+            for clause in clauses:
+                clause = clause.split(' ')
+                clause = remove_stopstrings(clause, self.stopwords_)
+                clause = [remove_stopchars(word, self.punctuation_) for word in clause]
+                clause = [stem(word) for word in clause] 
+                clause_set = set(clause)
 
-        
-
+                for feature in self.contents_:
+                    valid_feature = True
+                    for word in feature:
+                        if word not in clause_set:
+                            valid_feature = False
+                    if valid_feature and len(feature) > 0:
+                        result.append((feature, ''))
+        return result 
