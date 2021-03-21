@@ -13,8 +13,8 @@ py_binary (
 )
 
 py_library (
-    name = "fuzzy_finder",
-    srcs = ["fuzzy_finder.py"],
+    name = "feature_extractor",
+    srcs = ["feature_extractor.py"],
     deps = [
         "//file_utils:array_io_utils",
         "//preprocessing:string_cleaning_utils",
