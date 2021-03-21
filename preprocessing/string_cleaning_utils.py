@@ -1,7 +1,8 @@
 """ Utility files for cleaning strings. 
 """
-import nltk
 import string
+
+import nltk
 from nltk.stem.snowball import SnowballStemmer
 
 from file_utils.array_io_utils import lined_file_to_array
@@ -20,6 +21,7 @@ def get_punctuation():
     """Get the global list of punctuation from the predetermined file."""
     array = lined_file_to_array(PUNCTUATION_FILE)
     return set(array)
+
 
 def word_tokenize(string):
     """Tokenize a string into individual words.
@@ -41,6 +43,7 @@ def remove_stopstrings(strings, stopstrings):
     """
     return [s for s in strings if s not in stopstrings]
 
+
 def remove_stopchars(string, stopchars):
     """Removes a list of characters from the words, modifying the words
     themselves. 
@@ -51,7 +54,8 @@ def remove_stopchars(string, stopchars):
         the cleaned string
     """
     stopchars_str = ''.join(stopchars)
-    return string.translate(str.maketrans('', '', stopchars_str)) 
+    return string.translate(str.maketrans('', '', stopchars_str))
+
 
 def stem(string):
     """Gets the stem or base of an english word. If the word is not
