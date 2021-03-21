@@ -1,11 +1,26 @@
 """ Utility files for cleaning strings. 
 """
+import string
+
 import nltk
+from nltk.stem.snowball import SnowballStemmer
 
 from file_utils.array_io_utils import lined_file_to_array
 
 STOPWORDS_FILE = "preprocessing/stopwords.txt"
 PUNCTUATION_FILE = "preprocessing/punctuation.txt"
+
+
+def get_stopwords():
+    """Get the global list of english stopwords from the predetermined file."""
+    array = lined_file_to_array(STOPWORDS_FILE)
+    return set(array)
+
+
+def get_punctuation():
+    """Get the global list of punctuation from the predetermined file."""
+    array = lined_file_to_array(PUNCTUATION_FILE)
+    return set(array)
 
 
 def word_tokenize(string):
@@ -24,18 +39,31 @@ def remove_stopstrings(strings, stopstrings):
         param strings: list of input strings to clean
         param stopstrings: list of stopstrings to check against.
     Returns:
-        returns: list of strings
+        list of strings
     """
     return [s for s in strings if s not in stopstrings]
 
 
-def get_stopwords():
-    """Get the global list of english stopwords from the predetermined file."""
-    array = lined_file_to_array(STOPWORDS_FILE)
-    return set(array)
+def remove_stopchars(string, stopchars):
+    """Removes a list of characters from the words, modifying the words
+    themselves. 
+    Args:
+        param strings: a string to clean.
+        param stopchars: list of strings to check for in the words.
+    Returns:
+        the cleaned string
+    """
+    stopchars_str = ''.join(stopchars)
+    return string.translate(str.maketrans('', '', stopchars_str))
 
 
-def get_punctuation():
-    """Get the global list of punctuation from the predetermined file."""
-    array = lined_file_to_array(PUNCTUATION_FILE)
-    return set(array)
+def stem(string):
+    """Gets the stem or base of an english word. If the word is not
+    english or invalid, the input string will be returned.
+    Args:
+        string: string to process.
+    Returns:
+        the stem of the string.
+    """
+    stemmer = SnowballStemmer("english")
+    return stemmer.stem(string)

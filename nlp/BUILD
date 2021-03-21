@@ -12,3 +12,11 @@ py_binary (
     deps = [":pattern_match_utils"],
 )
 
+py_library (
+    name = "feature_extractor",
+    srcs = ["feature_extractor.py"],
+    deps = [
+        "//file_utils:array_io_utils",
+        "//preprocessing:string_cleaning_utils",
+    ],
+)
