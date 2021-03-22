@@ -1,9 +1,11 @@
 import pandas as pd
 from rake_nltk import Rake
+
 import file_utils.array_io_utils as utils
 
-CLAUSE_PUNCT = [',', '.', ';', ] # Identifiy clausal breaks
-NEG_WORDS = list(utils.lined_file_to_array('nlp/negation_words.txt')) # Negation words
+CLAUSE_PUNCT = [',', '.', ';']  # Identifiy clausal breaks
+NEG_WORDS = list(utils.lined_file_to_array('nlp/negation_words.txt'))  # Negation words
+
 
 def load_tags(tag_file='main_data/scraped_clinical_keywords.csv'):
     """
@@ -81,6 +83,7 @@ def pattern_match_keyword(text, tags, label, output_path):
     # Add datapoint to training data file
     utils.add_line_to_file(output_path, datapoint)
 
+
 def mark_negation(sentence):
     """
     Marks words that are negated in meaning. Double negatives are positive.
@@ -101,12 +104,10 @@ def mark_negation(sentence):
         # If new clause, then negation scope resets to false
         elif word in CLAUSE_PUNCT:
             scope_is_neg = False
-        
+
         # While negation scope is true, words are negated
         else:
             if scope_is_neg:
                 print("neg_scope:", sentence[i])
                 sentence[i] += "_NEG"
     return sentence
-
-            
