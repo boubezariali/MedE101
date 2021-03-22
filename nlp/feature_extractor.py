@@ -1,9 +1,9 @@
 import re
 
 import glog
-import stanza
 
 from file_utils.array_io_utils import read_array
+from nlp.stanza_utils import get_stanza_model
 from preprocessing.string_cleaning_utils import (get_punctuation,
                                                  get_stopwords,
                                                  remove_stopchars,
@@ -12,7 +12,7 @@ from preprocessing.string_cleaning_utils import (get_punctuation,
 
 class FeatureExtractor:
 
-    CLINICAL_FEATURES_FILE = 'main_data/clinical_keywords.csv'
+    CLINICAL_FEATURES_FILE = 'data/main_data/clinical_keywords.csv'
 
     def __init__(self, features=CLINICAL_FEATURES_FILE):
         self.contents_ = []
@@ -29,8 +29,9 @@ class FeatureExtractor:
         glog.info("Load data complete.")
 
     def get_mimic_features(self, text):
-        stanza.download('en', package='mimic', processors={'ner': 'i2b2'})
-        nlp = stanza.Pipeline('en', package='mimic', processors={'ner': 'i2b2'})
+        nlp = get_stanza_model(
+            package='mimic', processors={'ner': 'i2b2'}, download=False
+        )
         doc = nlp(text)
         result = []
 
@@ -55,8 +56,7 @@ class FeatureExtractor:
         return result
 
     def get_windowed_features(self, text):
-        stanza.download('en', processors='tokenize')
-        nlp = stanza.Pipeline('en', processors='tokenize')
+        nlp = get_stanza_model(processors='tokenize', download=False)
         doc = nlp(text)
         result = []
         # Get all sentences in the input text.

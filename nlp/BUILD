@@ -18,5 +18,11 @@ py_library (
     deps = [
         "//file_utils:array_io_utils",
         "//preprocessing:string_cleaning_utils",
+        ":stanza_utils",
     ],
+)
+
+py_library(
+    name = "stanza_utils",
+    srcs = ["stanza_utils.py"],
 )
