@@ -39,11 +39,7 @@ def main():
         type=str,
         help="Path of already preprocessed file to use as textual data",
     )
-    parser.add_argument(
-        "--output",
-        type=str,
-        help="Output location of processed data.",
-    )
+    parser.add_argument("--output", type=str, help="Output location of processed data.")
     parser.add_argument(
         "--tags",
         type=str,

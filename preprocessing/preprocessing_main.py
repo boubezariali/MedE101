@@ -34,18 +34,25 @@ def main():
     )
     args = parser.parse_args()
 
-    assert (args.input_file is not None) ^ (args.input_dir is not None), "One of input_file or input_dir must be non-empty"
-    input_dir = args.input_dir if args.input_dir is not None else os.path.dirname(args.input_file)
- 
+    assert (args.input_file is not None) ^ (
+        args.input_dir is not None
+    ), "One of input_file or input_dir must be non-empty"
+    input_dir = (
+        args.input_dir
+        if args.input_dir is not None
+        else os.path.dirname(args.input_file)
+    )
+
     filenames = []
     if args.input_file is not None:
         assert os.path.isfile(args.input_file), "Not a file: {}".format(args.input_file)
         filenames = [os.path.basename(args.input_file)]
     else:
-        assert os.path.isdir(args.input_dir), "Not a directory: {}".format(args.input_dir)
+        assert os.path.isdir(args.input_dir), "Not a directory: {}".format(
+            args.input_dir
+        )
         _, _, filenames = next(os.walk(input_dir))
         print(filenames)
-
 
     # Read in the files.
     for filename in filenames:
@@ -84,7 +91,11 @@ def main():
         # Write the list of sentences to disk.
         write_array(os.path.join(args.output_dir, filename), joined_data)
 
-        log.info("Successfully processed output to {}".format(os.path.join(args.output_dir, filename)))
+        log.info(
+            "Successfully processed output to {}".format(
+                os.path.join(args.output_dir, filename)
+            )
+        )
 
 
 if __name__ == "__main__":
