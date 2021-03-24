@@ -5,7 +5,8 @@ from preprocessing.string_cleaning_utils import (get_punctuation,
                                                  get_stopwords,
                                                  remove_stopchars,
                                                  remove_stopstrings, stem)
-from nlp.feature_extractor import FeatureExtractor
+from nlp.feature_extractors.feature_extractor import FeatureExtractor
+import re
 
 class ClauseFeatureExtractor(FeatureExtractor):
 
@@ -22,12 +23,12 @@ class ClauseFeatureExtractor(FeatureExtractor):
             for clause in clauses:
                 # Clean up each clause.
                 clause = clause.split(' ')
-                clause = remove_stopstrings(clause, self.stopwords_)
-                clause = [remove_stopchars(word, self.punctuation_) for word in clause]
+                clause = remove_stopstrings(clause, self._keyword_handler.stopwords)
+                clause = [remove_stopchars(word, self._keyword_handler.punctuation) for word in clause]
                 clause = [stem(word) for word in clause]
                 clause_set = set(clause)
                 # Loop through all our stored features.
-                for feature in self.keyword_handler_.keywords:
+                for feature in self._keyword_handler.keywords:
                     valid_feature = True
                     for word in feature:
                         if word not in clause_set:
@@ -35,3 +36,4 @@ class ClauseFeatureExtractor(FeatureExtractor):
                     # If all words are found then this is likley to be a valid feature.
                     if valid_feature and len(feature) > 0:
                         result.append(feature)
+        return result

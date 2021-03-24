@@ -1,3 +1,4 @@
+import glog
 
 from file_utils.array_io_utils import read_array
 from nlp.stanza_utils import get_stanza_model
@@ -5,10 +6,10 @@ from preprocessing.string_cleaning_utils import (get_punctuation,
                                                  get_stopwords,
                                                  remove_stopchars,
                                                  remove_stopstrings, stem)
-from nlp.feature_extractor import FeatureExtractor
+
 
 class KeywordHandler:
-    
+
     CLINICAL_FEATURES_FILE = 'data/main_data/clinical_keywords.csv'
 
     def __init__(self, features=CLINICAL_FEATURES_FILE):
@@ -26,6 +27,13 @@ class KeywordHandler:
         glog.info("Load data complete.")
 
     @property
-    def keywords():
+    def keywords(self):
         return self._contents
 
+    @property
+    def stopwords(self):
+        return self._stopwords
+
+    @property
+    def punctuation(self):
+        return self._punctuation

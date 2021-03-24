@@ -16,5 +16,16 @@ py_library(
         "//preprocessing:string_cleaning_utils",
         "//nlp:stanza_utils",
         ":feature_extractor",
-    ]
+    ],
+)
+
+py_library(
+    name = "clause_feature_extractor",
+    srcs = ["clause_feature_extractor.py"],
+    deps = [ 
+        "//file_utils:array_io_utils",
+        "//preprocessing:string_cleaning_utils",
+        "//nlp:stanza_utils",
+        ":feature_extractor",
+    ],
 )

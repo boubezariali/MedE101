@@ -16,3 +16,13 @@ py_library(
     name = "stanza_utils",
     srcs = ["stanza_utils.py"],
 )
+
+py_library(
+    name = "keyword_handler",
+    srcs = ["keyword_handler.py"],
+    deps = [ 
+        "//file_utils:array_io_utils",
+        "//preprocessing:string_cleaning_utils",
+    ],
+)
+    

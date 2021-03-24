@@ -5,7 +5,7 @@ from preprocessing.string_cleaning_utils import (get_punctuation,
                                                  get_stopwords,
                                                  remove_stopchars,
                                                  remove_stopstrings, stem)
-from nlp.feature_extractor import FeatureExtractor
+from nlp.feature_extractors.feature_extractor import FeatureExtractor
 
 class MimicFeatureExtractor(FeatureExtractor): 
     
@@ -20,12 +20,12 @@ class MimicFeatureExtractor(FeatureExtractor):
         for ent in doc.entities:
             # Construct a set of cleaned words from entity.
             words = ent.text.split(' ')
-            words = remove_stopstrings(words, self.stopwords_)
-            words = [remove_stopchars(word, self.punctuation_) for word in words]
+            words = remove_stopstrings(words, self._keyword_handler.stopwords)
+            words = [remove_stopchars(word, self._keyword_handler.punctuation) for word in words]
             words = [stem(word) for word in words]
             words_set = set(words)
             # Loop through all our stored clinical features.
-            for feature in self.keyword_handler_.keywords:
+            for feature in self._keyword_handler.keywords:
                 # Check that all the words in the feature are in the set.
                 valid_feature = True
                 for word in feature:
