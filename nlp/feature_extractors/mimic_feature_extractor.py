@@ -1,4 +1,5 @@
-
+""" Class definition for MimicFeatureExtractor.
+"""
 from file_utils.array_io_utils import read_array
 from nlp.stanza_utils import get_stanza_model
 from preprocessing.string_cleaning_utils import (get_punctuation,
@@ -8,6 +9,9 @@ from preprocessing.string_cleaning_utils import (get_punctuation,
 from nlp.feature_extractors.feature_extractor import FeatureExtractor
 
 class MimicFeatureExtractor(FeatureExtractor): 
+    """Extracts keywords based on what stanza tags as a keyword, which 
+    uses the MIMIC clinical feature dataset.
+    """
     
     def get_features(self, text):
         nlp = get_stanza_model(

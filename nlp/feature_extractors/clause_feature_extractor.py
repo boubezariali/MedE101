@@ -1,4 +1,6 @@
-
+""" Class definition for ClauseFeatureExtractor.
+"""
+import re
 from file_utils.array_io_utils import read_array
 from nlp.stanza_utils import get_stanza_model
 from preprocessing.string_cleaning_utils import (get_punctuation,
@@ -6,9 +8,11 @@ from preprocessing.string_cleaning_utils import (get_punctuation,
                                                  remove_stopchars,
                                                  remove_stopstrings, stem)
 from nlp.feature_extractors.feature_extractor import FeatureExtractor
-import re
 
 class ClauseFeatureExtractor(FeatureExtractor):
+    """Extracts keywords residing in the same clause within a sentence.
+    Does not specialize or do well with lists.
+    """
 
     def get_features(self, text):
         nlp = get_stanza_model(processors='tokenize', download=False)
