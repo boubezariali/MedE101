@@ -1,3 +1,5 @@
+""" Class definition for KeywordHandler.
+"""
 import glog
 
 from file_utils.array_io_utils import read_array
@@ -9,6 +11,10 @@ from preprocessing.string_cleaning_utils import (get_punctuation,
 
 
 class KeywordHandler:
+    """ Handler class for all clinical features. Instances of this class
+    are used by FeatureExtractors to maintain a consistent set 
+    punctuation and stopwords to clean off of.
+    """
 
     CLINICAL_FEATURES_FILE = 'data/main_data/clinical_keywords.csv'
 
