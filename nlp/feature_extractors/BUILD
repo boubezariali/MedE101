@@ -48,3 +48,14 @@ py_test(
         ":mimic_feature_extractor",
     ],
 )
+
+py_library(
+    name = "anatomy_list_feature_extractor",
+    srcs = ["anatomy_list_feature_extractor.py"],
+    deps = [ 
+        "//file_utils:array_io_utils",
+        "//preprocessing:string_cleaning_utils",
+        "//nlp:stanza_utils",
+        ":feature_extractor",
+    ],
+)
