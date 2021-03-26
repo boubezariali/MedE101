@@ -52,10 +52,10 @@ py_test(
 py_library(
     name = "anatomy_list_feature_extractor",
     srcs = ["anatomy_list_feature_extractor.py"],
-    deps = [ 
-        "//file_utils:array_io_utils",
-        "//preprocessing:string_cleaning_utils",
-        "//nlp:stanza_utils",
+    deps = [
         ":feature_extractor",
+        "//file_utils:array_io_utils",
+        "//nlp:stanza_utils",
+        "//preprocessing:string_cleaning_utils",
     ],
 )

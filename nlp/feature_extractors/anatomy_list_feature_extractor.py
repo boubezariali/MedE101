@@ -1,6 +1,8 @@
 """ Class definition for AnatomyListExtractor.
 """
 import numpy as np
+from collections import defaultdict
+
 from file_utils.array_io_utils import read_array
 from nlp.stanza_utils import get_stanza_model
 from preprocessing.string_cleaning_utils import (get_punctuation,
@@ -8,6 +10,8 @@ from preprocessing.string_cleaning_utils import (get_punctuation,
                                                  remove_stopchars,
                                                  remove_stopstrings, stem)
 from nlp.feature_extractors.feature_extractor import FeatureExtractor
+
+LIST_HEADS = set(['nmod', 'obl', 'obj'])
 
 class AnatomyListFeatureExtractor(FeatureExtractor): 
     """Extracts keywords from lists of anatomical nouns.
@@ -20,8 +24,13 @@ class AnatomyListFeatureExtractor(FeatureExtractor):
 
         # Get all sentences in the input text.
         sentences = [sentence.words for sentence in doc.sentences]
-        anatomy_terms = set([ent.text for ent in doc.entities])
-        print('anatomy terms:', anatomy_terms)
+        anatomy_terms = [ent.text for ent in doc.entities]
+        anatomy_dict = defaultdict(list)
+        for ent in doc.entities:
+            words = ent.text.split(' ')
+            words.reverse()
+            anatomy_dict[words[0]].append(words)
+        print(anatomy_dict)
         
         for sentence in sentences:
             i = len(sentence) - 1
@@ -30,16 +39,34 @@ class AnatomyListFeatureExtractor(FeatureExtractor):
                 cur_list = []
                 while i >= 0:
                     word = sentence[i]
-                    if word.deprel == 'conj' and word.text in anatomy_terms:
-                        cur_list.append(word.text)
-                    elif word.deprel == 'obl' and word.text in anatomy_terms:
-                        cur_list.append(word.text)
+                    # Check if the word is part of a list and is a body part.
+                    found_term = self._find_word(sentence, i, anatomy_dict)
+                    if word.deprel == 'conj' and found_term is not None:
+                        cur_list.append(found_term)
+                    # Check if the word is a list head, for that to be true there needs to be a non-zero length list already.
+                    elif word.deprel in LIST_HEADS and found_term is not None and len(cur_list) > 0:
+                        cur_list.append(found_term)
                         break
                     i -= 1
 
-                lists.append(np.copy(cur_list))
+                if len(cur_list) > 0:
+                    lists.append(np.copy(cur_list))
                 i -= 1
-            print('list:', lists)
+
+        print(lists)
+
+    def _find_word(self, sentence, i, anatomy_dict):
+        terms = anatomy_dict[sentence[i].text]
+        for lst in terms:
+            match = True
+            for j, word in enumerate(lst):
+                if word != sentence[i - j].text:
+                    match = False
+            if match:
+                print('returning', ' '.join(lst))
+                return ' '.join(lst)
+        return None
+                    
 
                      
                 
