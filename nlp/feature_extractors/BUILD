@@ -1,6 +1,6 @@
 package(default_visibility = ["//visibility:public"])
 
-py_library (
+py_library(
     name = "feature_extractor",
     srcs = ["feature_extractor.py"],
     deps = [
@@ -11,21 +11,21 @@ py_library (
 py_library(
     name = "mimic_feature_extractor",
     srcs = ["mimic_feature_extractor.py"],
-    deps = [ 
-        "//file_utils:array_io_utils",
-        "//preprocessing:string_cleaning_utils",
-        "//nlp:stanza_utils",
+    deps = [
         ":feature_extractor",
+        "//file_utils:array_io_utils",
+        "//nlp:stanza_utils",
+        "//preprocessing:string_cleaning_utils",
     ],
 )
 
 py_library(
     name = "clause_feature_extractor",
     srcs = ["clause_feature_extractor.py"],
-    deps = [ 
-        "//file_utils:array_io_utils",
-        "//preprocessing:string_cleaning_utils",
-        "//nlp:stanza_utils",
+    deps = [
         ":feature_extractor",
+        "//file_utils:array_io_utils",
+        "//nlp:stanza_utils",
+        "//preprocessing:string_cleaning_utils",
     ],
 )

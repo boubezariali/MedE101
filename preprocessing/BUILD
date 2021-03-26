@@ -1,30 +1,30 @@
 package(default_visibility = ["//visibility:public"])
 
-py_library (
-    name = "sentence_splitting_utils", 
-    srcs = ["sentence_splitting_utils.py"]
+py_library(
+    name = "sentence_splitting_utils",
+    srcs = ["sentence_splitting_utils.py"],
 )
 
-py_binary (
-    name = "preprocessing_main", 
-    srcs = ["preprocessing_main.py"], 
+py_binary(
+    name = "preprocessing_main",
+    srcs = ["preprocessing_main.py"],
     deps = [
         ":sentence_splitting_utils",
         ":string_cleaning_utils",
         "//file_utils:array_io_utils",
-    ]
-)		
+    ],
+)
 
-py_library (
+py_library(
     name = "string_cleaning_utils",
-    srcs = ["string_cleaning_utils.py"], 
+    srcs = ["string_cleaning_utils.py"],
     data = [":stopwords"],
     deps = [
         "//file_utils:array_io_utils",
-    ]
+    ],
 )
 
 filegroup(
-    name = "stopwords", 
+    name = "stopwords",
     srcs = ["stopwords.txt"],
 )
