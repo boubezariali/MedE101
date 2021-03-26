@@ -6,7 +6,7 @@ py_library(
     deps = ["//file_utils:array_io_utils"],
 )
 
-py_binary (
+py_binary(
     name = "pattern_match_main",
     srcs = ["pattern_match_main.py"],
     deps = [":pattern_match_utils"],
@@ -20,9 +20,8 @@ py_library(
 py_library(
     name = "keyword_handler",
     srcs = ["keyword_handler.py"],
-    deps = [ 
+    deps = [
         "//file_utils:array_io_utils",
         "//preprocessing:string_cleaning_utils",
     ],
 )
-    
