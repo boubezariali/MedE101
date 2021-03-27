@@ -30,7 +30,6 @@ class AnatomyListFeatureExtractor(FeatureExtractor):
             words = ent.text.split(' ')
             words.reverse()
             anatomy_dict[words[0]].append(words)
-        print(anatomy_dict)
         
         for sentence in sentences:
             i = len(sentence) - 1
@@ -53,8 +52,6 @@ class AnatomyListFeatureExtractor(FeatureExtractor):
                     lists.append(np.copy(cur_list))
                 i -= 1
 
-        print(lists)
-
     def _find_word(self, sentence, i, anatomy_dict):
         terms = anatomy_dict[sentence[i].text]
         for lst in terms:
@@ -63,7 +60,6 @@ class AnatomyListFeatureExtractor(FeatureExtractor):
                 if word != sentence[i - j].text:
                     match = False
             if match:
-                print('returning', ' '.join(lst))
                 return ' '.join(lst)
         return None
                     
