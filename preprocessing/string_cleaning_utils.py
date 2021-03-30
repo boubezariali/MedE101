@@ -6,6 +6,7 @@ import nltk
 from nltk.stem.snowball import SnowballStemmer
 
 from file_utils.array_io_utils import lined_file_to_array
+from file_utils.runfile_utils import runfile_location
 
 STOPWORDS_FILE = "preprocessing/stopwords.txt"
 PUNCTUATION_FILE = "preprocessing/punctuation.txt"
@@ -13,13 +14,13 @@ PUNCTUATION_FILE = "preprocessing/punctuation.txt"
 
 def get_stopwords():
     """Get the global list of english stopwords from the predetermined file."""
-    array = lined_file_to_array(STOPWORDS_FILE)
+    array = lined_file_to_array(runfile_location(STOPWORDS_FILE))
     return set(array)
 
 
 def get_punctuation():
     """Get the global list of punctuation from the predetermined file."""
-    array = lined_file_to_array(PUNCTUATION_FILE)
+    array = lined_file_to_array(runfile_location(PUNCTUATION_FILE))
     return set(array)
 
 

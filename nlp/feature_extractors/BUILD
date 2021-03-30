@@ -29,3 +29,12 @@ py_library(
         "//preprocessing:string_cleaning_utils",
     ],
 )
+
+py_test(
+    name = "feature_extraction_test",
+    srcs = ["feature_extraction_test.py"],
+    deps = [
+        ":feature_extractor",
+        ":mimic_feature_extractor",
+    ],
+)

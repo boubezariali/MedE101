@@ -20,8 +20,12 @@ py_library(
 py_library(
     name = "keyword_handler",
     srcs = ["keyword_handler.py"],
+    data = [
+        "//data/main_data:keywords",
+    ],
     deps = [
         "//file_utils:array_io_utils",
+        "//file_utils:runfile_utils",
         "//preprocessing:string_cleaning_utils",
     ],
 )

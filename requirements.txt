@@ -1,0 +1,6 @@
+glog==0.3.1
+rake_nltk==1.0.4
+numpy==1.20.1
+stanza==1.2
+pandas==1.2.3
+nltk==3.5
