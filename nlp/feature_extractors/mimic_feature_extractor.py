@@ -15,7 +15,7 @@ class MimicFeatureExtractor(FeatureExtractor):
     
     def get_features(self, text):
         nlp = get_stanza_model(
-            package='mimic', processors={'ner': 'i2b2'}, download=False
+            package='mimic', processors={'ner': 'i2b2'}, download=True
         )
         doc = nlp(text)
         result = []
