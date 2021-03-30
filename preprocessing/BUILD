@@ -27,5 +27,8 @@ py_library(
 
 filegroup(
     name = "listed_data",
-    srcs = ["stopwords.txt", "punctuation.txt"],
+    srcs = [
+        "punctuation.txt",
+        "stopwords.txt",
+    ],
 )

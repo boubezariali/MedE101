@@ -31,7 +31,7 @@ py_library(
 )
 
 py_test(
-    name = "feature_extraction_test", 
+    name = "feature_extraction_test",
     srcs = ["feature_extraction_test.py"],
     deps = [
         ":feature_extractor",
