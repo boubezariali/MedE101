@@ -22,8 +22,6 @@ class KeywordHandler:
     def __init__(self, features=CLINICAL_FEATURES_FILE):
         self._contents = []
         array = read_array(runfile_location(features))
-        # array = read_array(features)
-
         self._stopwords = get_stopwords()
         self._punctuation = get_punctuation()
         glog.info("Read data complete.")
