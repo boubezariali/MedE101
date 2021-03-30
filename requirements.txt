@@ -4,4 +4,3 @@ pandas==1.2.3
 glog==0.3.1
 stanza==1.2
 nltk==3.5
-pycassa==1.11.2
