@@ -18,13 +18,14 @@ py_binary(
 py_library(
     name = "string_cleaning_utils",
     srcs = ["string_cleaning_utils.py"],
-    data = [":stopwords"],
+    data = [":listed_data"],
     deps = [
         "//file_utils:array_io_utils",
+        "//file_utils:runfile_utils",
     ],
 )
 
 filegroup(
-    name = "stopwords",
-    srcs = ["stopwords.txt"],
+    name = "listed_data",
+    srcs = ["stopwords.txt", "punctuation.txt"],
 )

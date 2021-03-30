@@ -3,12 +3,12 @@
 import glog
 
 from file_utils.array_io_utils import read_array
+from file_utils.runfile_utils import runfile_location
 from nlp.stanza_utils import get_stanza_model
 from preprocessing.string_cleaning_utils import (get_punctuation,
                                                  get_stopwords,
                                                  remove_stopchars,
                                                  remove_stopstrings, stem)
-
 
 class KeywordHandler:
     """ Handler class for all clinical features. Instances of this class
@@ -20,7 +20,9 @@ class KeywordHandler:
 
     def __init__(self, features=CLINICAL_FEATURES_FILE):
         self._contents = []
-        array = read_array(features)
+        array = read_array(runfile_location(features))
+        #array = read_array(features)
+
         self._stopwords = get_stopwords()
         self._punctuation = get_punctuation()
         glog.info("Read data complete.")
