@@ -20,7 +20,7 @@ class KeywordHandler:
     CLINICAL_FEATURES_FILE = 'data/main_data/clinical_keywords.csv'
 
     def __init__(self, features=CLINICAL_FEATURES_FILE):
-        self._contents = []
+        self._contents = [] intentional error
         array = read_array(runfile_location(features))
         self._stopwords = get_stopwords()
         self._punctuation = get_punctuation()
