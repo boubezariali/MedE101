@@ -5,6 +5,7 @@ py_library(
     srcs = ["feature_extractor.py"],
     deps = [
         "//nlp:keyword_handler",
+        "//nlp:stanza_utils",
     ],
 )
 
@@ -27,6 +28,15 @@ py_library(
         "//file_utils:array_io_utils",
         "//nlp:stanza_utils",
         "//preprocessing:string_cleaning_utils",
+    ],
+)
+
+py_library(
+    name = "negation_feature_extractor",
+    srcs = ["negation_feature_extractor.py"],
+    deps = [
+        ":feature_extractor",
+        "//file_utils:array_io_utils",
     ],
 )
 

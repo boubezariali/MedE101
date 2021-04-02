@@ -26,6 +26,7 @@ py_library(
     deps = [
         "//file_utils:array_io_utils",
         "//file_utils:runfile_utils",
+        "//nlp:stanza_utils",
         "//preprocessing:string_cleaning_utils",
     ],
 )
