@@ -12,14 +12,13 @@ from preprocessing.string_cleaning_utils import (get_punctuation,
 from nlp.feature_extractors.feature_extractor import FeatureExtractor
 
 LIST_HEADS = set(['nmod', 'obl', 'obj'])
-PROBLEMS = set(['pain', 'discomfort', 'radiate'])
+PROBLEMS = set([stem(word) for word in ['pain', 'discomfort', 'radiate']])
 
 class AnatomyListFeatureExtractor(FeatureExtractor): 
     """Extracts keywords from lists of anatomical nouns.
     """
     
     def get_features(self, text):
-        result = []
         nlp_anatem = get_stanza_model(package='mimic', processors={'ner': 'anatem'}, download=False)
         doc_anatem = nlp_anatem(text) 
         anatomy_dict = self._get_term_dict([ent.text for ent in doc_anatem.entities])
@@ -43,6 +42,7 @@ class AnatomyListFeatureExtractor(FeatureExtractor):
                         j = i - 1
                         while j >= 0: 
                             word = sentence[j] 
+                            print(stem(word.text))
                             if stem(word.text) in PROBLEMS:
                                 cur_list.append(stem(word.text))
                                 break
@@ -53,7 +53,8 @@ class AnatomyListFeatureExtractor(FeatureExtractor):
                 if len(cur_list) > 0:
                     lists.append(np.copy(cur_list))
                 i -= 1
-        return lists
+        result = self._combine_lists(lists)
+        return result
 
     def _get_term_dict(self, terms):
         result = defaultdict(list)
@@ -74,3 +75,11 @@ class AnatomyListFeatureExtractor(FeatureExtractor):
             if match:
                 return ' '.join(lst)
         return None 
+
+    def _combine_lists(self, lists):
+        result = []
+        for lst in lists: 
+            if lst[-1] in PROBLEMS:
+                for term in lst[:-1]:
+                    result.append(term + ' ' + lst[-1])
+        return result 
