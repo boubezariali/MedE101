@@ -12,6 +12,15 @@ py_binary(
     deps = [":pattern_match_utils"],
 )
 
+py_binary(
+    name = "feature_extraction_main",
+    srcs = ["feature_extraction_main.py"],
+    deps = [
+        "//nlp:data_module",
+        "//nlp/data_models:comprehensive_data_model",
+    ],
+)
+
 py_library(
     name = "stanza_utils",
     srcs = ["stanza_utils.py"],
@@ -29,4 +38,9 @@ py_library(
         "//nlp:stanza_utils",
         "//preprocessing:string_cleaning_utils",
     ],
+)
+
+py_library(
+    name = "data_module",
+    srcs = ["data_module.py"],
 )
