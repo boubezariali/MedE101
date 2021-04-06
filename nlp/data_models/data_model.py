@@ -11,8 +11,8 @@ class DataModel(ABC):
     
     @abstractmethod
     def get_feature_extractors():
-    """ Return the feature extractors of the DataModel.
-    """
+        """ Return the feature extractors of the DataModel.
+        """
         pass   
 
 

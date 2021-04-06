@@ -42,7 +42,6 @@ class AnatomyListFeatureExtractor(FeatureExtractor):
                         j = i - 1
                         while j >= 0: 
                             word = sentence[j] 
-                            print(stem(word.text))
                             if stem(word.text) in PROBLEMS:
                                 cur_list.append(stem(word.text))
                                 break

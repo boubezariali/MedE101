@@ -12,8 +12,8 @@ def main():
     parser.add_argument(
         "--input_text",
         type=str,
-        help="Path of text to extract on."
-        default="data/test_data/raw_text/Coronary_Artery_Disease.txt"
+        help="Path of text to extract on.",
+        default="data/test_data/raw_text/Coronary_Artery_Disease.txt",
     )
     args = parser.parse_args()
 
