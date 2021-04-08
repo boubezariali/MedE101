@@ -4,16 +4,16 @@
 
 The webapp frontend consists of Javascript, HTML, and CSS. In order to communicate with the Python backend, we are using Flask. Flask routes Python functions to HTML pages. Each HTML page has reference CSS stylesheets and source Javascript script.
 
-## Directory structure
-The webapp is located in the `app` folder. Within it, `template` folder contains HTML pages, while the `static` folder contains CSS and JS files.
-`app`
-    app.py
-    `templates`
-        index.html
-        test_page.html
-    `static`
-        app_front.js
-        styles.css
+### Directory structure
+The webapp is located in the `app` folder. Within it, `template` folder contains HTML pages, while the `static` folder contains CSS and JS files.   
+`app`   
+.`app.py `  
+`templates`    
+.`index.html`   
+.`test_page.html`  
+`static`    
+.`app_front.js`  
+.`styles.css`     
 
 ### Install and run Flask
 Install Flask using pip:
