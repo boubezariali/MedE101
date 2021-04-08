@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<link href="{{url_for('static', filename='styles.css')}}" rel="stylesheet" />
+		<script src="{{url_for('static', filename='app_front.js')}}"></script>
+		<link rel="shortcut icon" href="#" />
+	</head>
+	
+	<body>
+		<header>
+			<h1>Differential Diagnosis Webapp</h1>
+			<p id='embed'>{{embed}}</p>
+			<p id='mylog' class='hidden'></p>
+			<hr />
+		</header>
+		<main>
+			<form id="symptom">
+			  <label>Symptoms: <input type="text" id="symptom" name="symptom" /></label>
+			  <button type="submit">Get Diagnosis!</button>
+			</form>
+		</main>
+	</body>
+</html>
+  
