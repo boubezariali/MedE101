@@ -1,5 +1,36 @@
 # MedE101
 
+## Webapp
+
+The webapp frontend consists of Javascript, HTML, and CSS. In order to communicate with the Python backend, we are using Flask. Flask routes Python functions to HTML pages. Each HTML page has reference CSS stylesheets and source Javascript script.
+
+## Directory structure
+The webapp is located in the `app` folder. Within it, `template` folder contains HTML pages, while the `static` folder contains CSS and JS files.
+`app`
+    app.py
+    `templates`
+        index.html
+        test_page.html
+    `static`
+        app_front.js
+        styles.css
+
+### Install and run Flask
+Install Flask using pip:
+```
+pip3 install flask
+```
+To run Flask,
+```
+export FLASK_APP=app.py
+python3 app.py
+```
+
+Now you'll want to test out the webpage. In your browser (I'm using Chrome), enter the address `http://127.0.0.1:5000/`. There is also a page to test Flask routing, at `http://127.0.0.1:5000/test`.
+
+To see console log messages, right click `Inspect` and click the `Console` tab. If refreshing the page isn't showing the changes you expect, Ctrl-F5 to force refresh.
+
+
 ## Pushing to main
 
 ### Formatting
