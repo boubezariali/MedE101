@@ -1,7 +1,10 @@
 <html>
 	<head>
 		<link href="{{url_for('static', filename='styles.css')}}" rel="stylesheet" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 		<script src="{{url_for('static', filename='app_front.js')}}"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
 		<link rel="shortcut icon" href="#" />
 	</head>
 	
@@ -13,10 +16,18 @@
 			<hr />
 		</header>
 		<main>
-			<form id="symptom">
+			<p>This is a sample input form, currently static.</p>
+			<form id="symptom_form">
 			  <label>Symptoms: <input type="text" id="symptom" name="symptom" /></label>
 			  <button type="submit">Get Diagnosis!</button>
 			</form>
+			<br>
+			<div class="ui-widget">
+				<p>This widget autocompletes and allows multiple selections. Try "pain."</p>
+				<label for="tags">Tag clinical features: </label>
+				<input id="tags" size="50">
+				<button type="submit">Submit Features!</button>
+			</div>	
 		</main>
 	</body>
 </html>
