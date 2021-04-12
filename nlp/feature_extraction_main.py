@@ -7,7 +7,7 @@ from nlp.data_models.comprehensive_data_model import ComprehensiveDataModel
 from nlp.data_module import DataModule
 
 
-def main(): 
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--input_text",
@@ -21,6 +21,7 @@ def main():
     module = DataModule(model, args.input_text)
     features = module.generate_features()
     print(features)
+
 
 if __name__ == "__main__":
     main()
