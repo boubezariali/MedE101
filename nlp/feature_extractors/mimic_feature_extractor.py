@@ -37,5 +37,5 @@ class MimicFeatureExtractor(FeatureExtractor):
                         valid_feature = False
                 # If all words are found then this is likley to be a valid feature.
                 if valid_feature and len(feature) > 0:
-                    result.append(feature)
+                    result.append(' '.join(feature))
         return result
