@@ -11,16 +11,18 @@
 	<body>
 		<header>
 			<h1>Differential Diagnosis Webapp</h1>
-			<p id='embed'>{{embed}}</p>
-			<p id='mylog' class='hidden'></p>
+			<p>{{embed}}</p>
 			<hr />
 		</header>
 		<main>
-			<p>This is a sample input form, currently static.</p>
-			<form id="symptom_form">
-			  <label>Symptoms: <input type="text" id="symptom" name="symptom" /></label>
+			<p>This is a sample input form. Try inputting a symptom to get diagnosis!</p>
+			<form id="symptom_form" action="/submitfn" method="post">
+			  <label>Symptoms: 
+				  <input type="text" id="symptom" name="symptom" />
+			  </label>
 			  <button type="submit">Get Diagnosis!</button>
 			</form>
+			<p>{{disease_output}}</p>
 			<br>
 			<div class="ui-widget">
 				<p>This widget autocompletes and allows multiple selections. Try "pain."</p>

@@ -3,7 +3,22 @@
  */
 $(function() {
     "use strict";
-    console.log("in javascript");
+
+    window.addEventListener('load', init);
+
+    function init() {
+        console.log('init');
+        let submitButton = id("symptom_form");
+        // submitButton.addEventListener("submit", passUserInput);
+    }
+
+    function passUserInput(evt) {
+        evt.preventDefault();
+        console.log("passUserInput");
+        let inputSymp = id("symptom").value;
+        // TODO: Handle error
+        console.log(inputSymp);
+    }
 
     // Clinical  features - replace with load CSV
     let availableTags = ["pain", "paralysis", "cough", "fever"];
@@ -33,13 +48,6 @@ $(function() {
             return false;
         }
     });
-    
-    // Fetch json
-      fetch('/test')
-          .then(function (text) {
-              let textBlock = 'GET response text: \n' + text + '\n' + JSON.stringify(text) + '\n';
-              document.querySelector("#mylog").textContent = textBlock;
-          })
 
     // Simple helper functions
     function split(val) {
@@ -48,5 +56,9 @@ $(function() {
 
     function extractLast(term) {
         return split(term).pop();
+    }
+
+    function id(idName) {
+        return document.getElementById(idName);
     }
 });
