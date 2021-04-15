@@ -1,7 +1,7 @@
 /*
  * Scripting for html pages goes here. Using JQuery.
  */
-$(function() {
+$(function () {
     "use strict";
 
     window.addEventListener('load', init);
@@ -25,29 +25,29 @@ $(function() {
 
     // Configure autocomplete for #tags ui-widget
     $('#tags')
-    .on("keydown", function(event) {
-        if (event.keyCode === $.ui.keyCode.TAB && 
-            $(this).autocomplete("instance").menu.active) {
-            event.preventDefault();
-        }
-    })
-    .autocomplete({
-        minLength: 0,
-        source: function(request, response) {
-            response($.ui.autocomplete.filter(availableTags, extractLast(request.term)));
-        },
-        focus: function() {
-            return false;
-        },
-        select: function(event, ui) {
-            let terms = split(this.value);
-            terms.pop();
-            terms.push(ui.item.value);
-            terms.push("");
-            this.value = terms.join(", ");
-            return false;
-        }
-    });
+        .on("keydown", function (event) {
+            if (event.keyCode === $.ui.keyCode.TAB &&
+                $(this).autocomplete("instance").menu.active) {
+                event.preventDefault();
+            }
+        })
+        .autocomplete({
+            minLength: 0,
+            source: function (request, response) {
+                response($.ui.autocomplete.filter(availableTags, extractLast(request.term)));
+            },
+            focus: function () {
+                return false;
+            },
+            select: function (event, ui) {
+                let terms = split(this.value);
+                terms.pop();
+                terms.push(ui.item.value);
+                terms.push("");
+                this.value = terms.join(", ");
+                return false;
+            }
+        });
 
     // Simple helper functions
     function split(val) {

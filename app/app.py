@@ -9,11 +9,12 @@ def home_page():
     example_embed='This sample string is from Python, passed into HTML frontend via Flask!'
     return render_template('index.html', embed=example_embed)
 
+
 @app.route('/submitfn', methods = ['POST', 'GET'])
 def submitfn():
     if request.method == 'POST':
-        symp = request.form['symptom']
-        print("symp is ", symp)
+        symp = request.form['tags'] # comma separated string
+        print("symp is ", symp, len(symp))
         msg = testHelper(symp)
         return render_template('index.html', disease_output=msg)
     else:
@@ -37,9 +38,7 @@ def submitfn():
 def testHelper(input):
     diseases = ["heart attack", "flu", "cancer", "allergy"]
     pick = len(input) % len(diseases)
-    msg = "Disease: " + diseases[pick]
-    print(msg)
-    return msg
+    return diseases[pick]
 
 
 
