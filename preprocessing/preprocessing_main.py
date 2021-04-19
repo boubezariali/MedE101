@@ -13,7 +13,8 @@ import glog as log
 import numpy as np
 
 from file_utils.array_io_utils import write_array
-from preprocessing import sentence_splitting_utils, string_cleaning_utils
+from preprocessing import sentence_splitting_utils
+from preprocessing import string_cleaning_utils as ss
 
 
 def main():
@@ -52,50 +53,19 @@ def main():
             args.input_dir
         )
         _, _, filenames = next(os.walk(input_dir))
-        print(filenames)
 
     # Read in the files.
     for filename in filenames:
         log.info("Processing {}".format(os.path.join(input_dir, filename)))
         with open(os.path.join(input_dir, filename), "r") as f:
             text = f.read()
-        if args.split_method == "regex":
-            split_data = sentence_splitting_utils.split_into_sentences_regex(text)
-        elif args.split_method == "nltk":
-            split_data = sentence_splitting_utils.split_into_sentences_nltk(text)
-        else:
-            raise ValueError("Invalid option {}.".format(args.split_method))
 
-        # Get the punctuation and stopwords to remove.
-        punctuation = string_cleaning_utils.get_punctuation()
-        stopwords = string_cleaning_utils.get_stopwords()
-        # Tokenize into individual words.
-        tokenized_data = [string_cleaning_utils.word_tokenize(s) for s in split_data]
-        # Remove punctuation.
-        tokenized_data = [
-            string_cleaning_utils.remove_stopstrings(lst, punctuation)
-            for lst in tokenized_data
-        ]
-        # Remove stopwords
-        tokenized_data = [
-            string_cleaning_utils.remove_stopstrings(lst, stopwords)
-            for lst in tokenized_data
-        ]
+        text = ss.strip_html_tags(text)
+        text = ss.remove_accented_chars(text)
+        text = ss.expand_contractions(text)
 
-        # Join the words to avoid a ragged array.
-        joined_data = np.array([','.join(lst) for lst in tokenized_data])
-
-        # Ensure the file is a csv.
-        filename = os.path.splitext(filename)[0] + '.csv'
-
-        # Write the list of sentences to disk.
-        write_array(os.path.join(args.output_dir, filename), joined_data)
-
-        log.info(
-            "Successfully processed output to {}".format(
-                os.path.join(args.output_dir, filename)
-            )
-        )
+        with open(os.path.join(args.output_dir, filename), 'w') as f:
+            f.write(text)
 
 
 if __name__ == "__main__":

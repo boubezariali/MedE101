@@ -1,6 +1,12 @@
-glog==0.3.1
-rake_nltk==1.0.4
 numpy==1.20.1
-stanza==1.2
+rake_nltk==1.0.4
 pandas==1.2.3
-nltk==3.5
+stanza==1.2
+glog==0.3.1
+nlp==0.4.0
+preprocessing==0.1.13
+Unidecode==1.2.0
+spacy==3.0.5
+nltk
+contractions==0.0.48
+beautifulsoup4==4.9.3
