@@ -2,7 +2,11 @@
 """
 import string
 
+import contractions
 import nltk
+import spacy
+import unidecode
+from bs4 import BeautifulSoup
 from nltk.stem.snowball import SnowballStemmer
 
 from file_utils.array_io_utils import lined_file_to_array
@@ -68,3 +72,22 @@ def stem(string):
     """
     stemmer = SnowballStemmer("english")
     return stemmer.stem(string)
+
+
+def strip_html_tags(text):
+    """remove html tags from text"""
+    soup = BeautifulSoup(text, "html.parser")
+    stripped_text = soup.get_text(separator=" ")
+    return stripped_text
+
+
+def remove_accented_chars(text):
+    """remove accented characters from text, e.g. café"""
+    text = unidecode.unidecode(text)
+    return text
+
+
+def expand_contractions(text):
+    """expand shortened words, e.g. don't to do not"""
+    text = contractions.fix(text)
+    return text
