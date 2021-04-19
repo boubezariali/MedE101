@@ -7,6 +7,6 @@ nlp==0.4.0
 preprocessing==0.1.13
 Unidecode==1.2.0
 spacy==3.0.5
-nltk==3.5
+nltk
 contractions==0.0.48
 beautifulsoup4==4.9.3
