@@ -2,11 +2,19 @@
 
 <head>
 	<link href="{{url_for('static', filename='styles.css')}}" rel="stylesheet" />
+
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script src="{{url_for('static', filename='app_front.js')}}"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+
 	<link rel="shortcut icon" href="#" />
+
+
+	<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>   
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
 </head>
 
 <body>
@@ -15,6 +23,11 @@
 		<p>{{embed}}</p>
 		<hr />
 	</header>
+	<!-- We will put our React component inside this div. -->
+	<div id="like_button_container"></div>
+
+	<div id="root"></div>
+
 	<main>
 		<div>
 			<p>This widget autocompletes and allows multiple selections. Try "pain."</p>
@@ -27,6 +40,21 @@
 			<p>Disease: {{disease_output}}</p>
 		</div>
 	</main>
+	<!-- Load React. -->
+	<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+	<!--script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script-->
+	<!--script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script-->
+
+	<!-- Load our React component. -->
+	<script src="{{url_for('static', filename='like_button.js')}}"></script>
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+	<!-- Icons to support Material Design -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+
+	<!-- <script type="text/babel" src="{{url_for('static', filename='demo.js')}}"></script> -->
+	<script type="text/babel" src="{{url_for('static', filename='demo.js')}}"></script>
 </body>
 
 </html>
