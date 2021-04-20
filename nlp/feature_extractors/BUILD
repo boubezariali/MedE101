@@ -37,6 +37,7 @@ py_library(
     deps = [
         ":feature_extractor",
         "//file_utils:array_io_utils",
+        "//nlp:stanza_utils",
     ],
 )
 
