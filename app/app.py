@@ -9,6 +9,19 @@ def home_page():
     example_embed='This sample string is from Python, passed into HTML frontend via Flask!'
     return render_template('index.html', embed=example_embed)
 
+@app.route('/tester')
+def tester_page():
+    items = ['heart attack', 'stroke', 'asthma']
+    json = jsonify({'test_items': items})
+    return json
+
+@app.route('/add_feature', methods = ['POST'])
+def add_feature():
+    feature_data = request.get_json()
+    # Do something with posted feature data
+    print("feature_data: ", feature_data)
+    return 'Done', 201
+
 
 @app.route('/submitfn', methods = ['POST', 'GET'])
 def submitfn():
