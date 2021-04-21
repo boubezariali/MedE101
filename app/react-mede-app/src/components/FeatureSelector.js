@@ -8,8 +8,8 @@ const options = [
     { key: "asthma", text: "Asthma", value: "asthma" }
 ]
 
-export const FeatureSelector = ({ onNewFeature }) => {
-    const [features, setFeatures] = useState(options);
+export const FeatureSelector = ({ onNewFeatures }) => {
+    const [features, setFeatures] = useState([]);
     return (
         <Form>
             <Form.Field>
@@ -38,6 +38,7 @@ export const FeatureSelector = ({ onNewFeature }) => {
                     if (response.ok) {
                         console.log("response ok");
                         console.log(features);
+                        onNewFeatures(features);
                     }
                 }}
                 >Submit</Button>

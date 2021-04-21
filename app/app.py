@@ -2,6 +2,8 @@
 from flask import Flask, jsonify, request, render_template, redirect
 app = Flask(__name__)
 
+# TODO: replace global with database
+INPUT_FEATURES = []
 
 ######## HOME ############
 @app.route('/')
@@ -10,16 +12,21 @@ def home_page():
     return render_template('index.html', embed=example_embed)
 
 @app.route('/tester')
-def tester_page():
-    items = ['heart attack', 'stroke', 'asthma']
-    json = jsonify({'test_items': items})
-    return json
+def retrieve_diagnosis():
+    # msg = testHelper(INPUT_FEATURES)
+    msg = "test message"
+    # print("FETCH: global", INPUT_FEATURES)
+    print("FETCH message:", msg)
+    return jsonify({'diagnosis': msg})
 
 @app.route('/add_feature', methods = ['POST'])
 def add_feature():
     feature_data = request.get_json()
+    print("POST: feature_data: ", feature_data)
+    
     # Do something with posted feature data
-    print("feature_data: ", feature_data)
+    # TODO: something is wrong with this being local instead of global
+    INPUT_FEATURES = feature_data
     return 'Done', 201
 
 
