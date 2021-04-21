@@ -2,12 +2,32 @@
 from flask import Flask, jsonify, request, render_template, redirect
 app = Flask(__name__)
 
+# TODO: replace global with database
+INPUT_FEATURES = []
 
 ######## HOME ############
 @app.route('/')
 def home_page():
     example_embed='This sample string is from Python, passed into HTML frontend via Flask!'
     return render_template('index.html', embed=example_embed)
+
+@app.route('/tester')
+def retrieve_diagnosis():
+    # msg = testHelper(INPUT_FEATURES)
+    msg = "test message"
+    # print("FETCH: global", INPUT_FEATURES)
+    print("FETCH message:", msg)
+    return jsonify({'diagnosis': msg})
+
+@app.route('/add_feature', methods = ['POST'])
+def add_feature():
+    feature_data = request.get_json()
+    print("POST: feature_data: ", feature_data)
+    
+    # Do something with posted feature data
+    # TODO: something is wrong with this being local instead of global
+    INPUT_FEATURES = feature_data
+    return 'Done', 201
 
 
 @app.route('/submitfn', methods = ['POST', 'GET'])
