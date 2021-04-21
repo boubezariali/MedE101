@@ -1,14 +1,15 @@
 // Handles rendering clinical features
 import React, { useState } from 'react';
-import { List, Header, Dropdown, Form, Button } from "semantic-ui-react"
+import { Dropdown, Form, Button } from "semantic-ui-react"
 
 const options = [
     { key: 'heart_attack', text: "Heart Attack", value: 'heart_attack' },
     { key: "stroke", text: "Stroke", value: 'stroke' },
     { key: "asthma", text: "Asthma", value: "asthma" }
 ]
+
 export const FeatureSelector = ({ onNewFeature }) => {
-    const [feature, setFeature] = useState('');
+    const [features, setFeatures] = useState(options);
     return (
         <Form>
             <Form.Field>
@@ -19,6 +20,9 @@ export const FeatureSelector = ({ onNewFeature }) => {
                     selection
                     multiple
                     options={options}
+                    onChange={
+                        (event, data) => setFeatures(data.value)
+                    }
                 />
             </Form.Field>
             <Form.Field>
@@ -28,12 +32,12 @@ export const FeatureSelector = ({ onNewFeature }) => {
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(feature)
+                        body: JSON.stringify(features)
                     })
 
                     if (response.ok) {
                         console.log("response ok");
-                        onNewFeature(feature)
+                        console.log(features);
                     }
                 }}
                 >Submit</Button>

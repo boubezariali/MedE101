@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container } from 'semantic-ui-react';
+import { Container, Header } from 'semantic-ui-react';
 import './App.css';
 import { ClinicalFeatures } from './components/ClinicalFeatures';
 import { FeatureSelector } from './components/FeatureSelector';
@@ -17,10 +17,15 @@ function App() {
   return (
     <div className="App">
       <Container style={{ marginTop: 40 }}>
-        <FeatureSelector
-          onNewFeature={
-            feature => setFeatures(currentFeatures => [...currentFeatures, feature])
-          } />
+        <Header as='h2' block={true}>
+          <Header.Content>
+            Differential Diagnosis Trainer
+            <Header.Subheader>Input clinical features and submit for diagnosis</Header.Subheader>
+          </Header.Content>
+        </Header>
+        
+        <FeatureSelector/>
+
         <ClinicalFeatures features={features} />
       </Container>
     </div>
