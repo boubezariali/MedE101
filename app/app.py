@@ -1,4 +1,5 @@
 # app.py
+from helpers import testHelper
 from flask import Flask, jsonify, request, render_template, redirect
 app = Flask(__name__)
 
@@ -11,21 +12,17 @@ def home_page():
     example_embed='This sample string is from Python, passed into HTML frontend via Flask!'
     return render_template('index.html', embed=example_embed)
 
-@app.route('/tester')
+# Process GET requests for diagnosis
+@app.route('/retrieve_diagnosis', methods = ['GET'])
 def retrieve_diagnosis():
-    # msg = testHelper(INPUT_FEATURES)
-    msg = "test message"
-    # print("FETCH: global", INPUT_FEATURES)
-    print("FETCH message:", msg)
-    return jsonify({'diagnosis': msg})
+    diagnosis = testHelper(INPUT_FEATURES)
+    return jsonify({'diagnosis': diagnosis})
 
-@app.route('/add_feature', methods = ['POST'])
-def add_feature():
+# Process POST request with input features from user
+@app.route('/add_feature', methods = ['POST'])  
+def add_feature_old():
+    global INPUT_FEATURES
     feature_data = request.get_json()
-    print("POST: feature_data: ", feature_data)
-    
-    # Do something with posted feature data
-    # TODO: something is wrong with this being local instead of global
     INPUT_FEATURES = feature_data
     return 'Done', 201
 
@@ -52,15 +49,6 @@ def submitfn():
 
 # Pass prediction to front page
 # render_template('index.html', output_display=output)
-
-
-# Dummy to test processing input data
-def testHelper(input):
-    diseases = ["heart attack", "flu", "cancer", "allergy"]
-    pick = len(input) % len(diseases)
-    return diseases[pick]
-
-
 
 # run app
 if __name__ == "__main__":

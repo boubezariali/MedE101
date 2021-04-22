@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { List, Header, Container } from "semantic-ui-react"
+import React, { useState } from 'react';
+import { Header, Container } from "semantic-ui-react"
 
 export const DiagnosisDisplay = ({ features }) => {
-    console.log(features);
-    console.log(features.length);
-
-    // Fetch diagnosis from Python (features already posted and processed)
+    // Fetch diagnosis from Python (features already send via POST request)
     const [diagnosis, setDiagnosis] = useState("");
-    console.log("init", diagnosis);
-
-    fetch('/tester').then(response =>
-        response.json().then(data => {
-            setDiagnosis(data.diagnosis);
-        }));
-    console.log("diagnosis", diagnosis);
 
     // Only display diagnosis if features have been submitted
     if (features.length <= 0) {
         return (<Container />);
     }
+
+    fetch('/retrieve_diagnosis').then(response =>
+        response.json().then(data => {
+            setDiagnosis(data.diagnosis);
+        }));
 
     return (
         <Container>

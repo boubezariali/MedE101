@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Container, Header } from 'semantic-ui-react';
 import './App.css';
-import { ClinicalFeatures } from './components/ClinicalFeatures';
 import { DiagnosisDisplay } from './components/DiagnosisDisplay';
 import { FeatureSelector } from './components/FeatureSelector';
-
 
 function App() {
   const [features, setFeatures] = useState([]);
