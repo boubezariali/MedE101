@@ -2,31 +2,65 @@
 
 ## Webapp
 
-The webapp frontend consists of Javascript, HTML, and CSS. In order to communicate with the Python backend, we are using Flask. Flask routes Python functions to HTML pages. Each HTML page has reference CSS stylesheets and source Javascript script.
+The webapp frontend consists of Javascript with React, HTML, and CSS. In order to communicate with the Python backend, we are using Flask. Flask routes Python functions to HTML, and also communicates with JS using GET/POST requests.
 
 ### Directory structure
-The webapp is located in the `app` folder. Within it, `template` folder contains HTML pages, while the `static` folder contains CSS and JS files.   
-`app`   
-.`app.py `  
-`templates`    
-.`index.html`   
-.`test_page.html`  
-`static`    
-.`app_front.js`  
-.`styles.css`     
+The webapp is located in the `app` folder. Within it, the `react-mede-app` folder contains the `App.js` entrypoint and relevant React app files.    
+  
+  * `app` - folder with everything relevant to webapp
+    * `app.py`  - Flask setting up server  
+    * `react-mede-app` - React package for webapp - this is where all the frontend is  
+      * `package.json` - ontains info about the app and versions, plus where to route for the app  
+      * `src` - folder of important code files   
+        * `App.js` - where the important rendering is. Entry point for webapp.
+        * `components` - folder of custom React components used in `App.js`
 
-### Install and run Flask
-Install Flask using pip:
+    * `templates` - folder with HTML pages    
+    * `static` - folder with JS and CSS         
+
+### Installations to run the webapp
+**Install Flask:**
 ```
 pip3 install flask
 ```
-To run Flask,
+
+**Install fnm to install Node.js on Ubuntu:**
 ```
-export FLASK_APP=app.py
-python3 app.py
+curl -fsSL https://fnm.vercel.app/install | bash  
+source /home/[your_unixname]/.bashrc  
+fnm install 14.16.0  
+```
+This allows you to use `npx` and `npm`
+
+**Install semantic-ui:**
+```
+npm i semantic-ui-react semantic-ui-css
 ```
 
-Now you'll want to test out the webpage. In your browser (I'm using Chrome), enter the address `http://127.0.0.1:5000/`. There is also a page to test Flask routing, at `http://127.0.0.1:5000/test`.
+### Testing webapp with React frontend (new)
+**Run Flask in background**  
+In `app` directory:
+```
+export FLASK_APP=app
+export FLASK_DEBUG=1
+flask run  
+```
+
+**Start React app**  
+In `react-mede-app` directory:
+```
+npm start
+```
+This starts up the localhost.
+
+**Navigate to webpage**  
+In your brower, visit `http://localhost:3000/`.   
+To see console log messages, right click `Inspect` and click the `Console` tab. If refreshing the page isn't showing the changes you expect, Ctrl-F5 to force refresh.  
+
+
+
+### Testing webapp without React frontend (old)
+This is the way to test the old frontend which does not use React. It will be obsolete soon. In your browser (I'm using Chrome), enter the address `http://127.0.0.1:5000/`. There is also a page to test Flask routing, at `http://127.0.0.1:5000/test`.
 
 To see console log messages, right click `Inspect` and click the `Console` tab. If refreshing the page isn't showing the changes you expect, Ctrl-F5 to force refresh.
 
