@@ -31,6 +31,16 @@ py_library(
     ],
 )
 
+py_library(
+    name = "negation_feature_extractor",
+    srcs = ["negation_feature_extractor.py"],
+    deps = [
+        ":feature_extractor",
+        "//file_utils:array_io_utils",
+        "//nlp:stanza_utils",
+    ],
+)
+
 py_test(
     name = "feature_extraction_test",
     srcs = ["feature_extraction_test.py"],

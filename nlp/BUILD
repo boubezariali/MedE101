@@ -44,11 +44,3 @@ py_library(
     name = "data_module",
     srcs = ["data_module.py"],
 )
-
-py_library(
-    name = "modifier_handler",
-    srcs = ["modifier_handler.py"],
-    deps = [
-        ":stanza_utils",
-    ],
-)
