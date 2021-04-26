@@ -12,7 +12,7 @@ class ModifierHandler:
 
     def get_modifier(self, sent_idx, word_idx):
         if (sent_idx, word_idx) in self._modifiers:
-            return self._modifiers[sent_idx_word_idx]
+            return self._modifiers[sent_idx, word_idx]
         return []
 
     @property
