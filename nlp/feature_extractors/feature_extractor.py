@@ -18,7 +18,7 @@ class FeatureExtractor(ABC):
         self._keyword_handler = keyword_handler
 
     @abstractmethod
-    def get_features():
+    def get_features(self, text):
         """This function should return a list of features from the KeyWordHandler found 
         by the extractor.
         Returns:
