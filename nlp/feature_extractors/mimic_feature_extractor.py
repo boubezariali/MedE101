@@ -20,6 +20,22 @@ class MimicFeatureExtractor(FeatureExtractor):
         doc = nlp(text)
         result = []
 
+        cur_idx = 0
+        cur_term = doc.entities[cur_idx].text.split(' ')
+        for sent_idx, sentence in enumerate(doc.sentences):
+            words = [word.text for word in sentence.words]
+
+            for word_idx, word in enumerate(words):
+                if word_idx + len(cur_term) <= len(words) and cur_term == words[word_idx:(word_idx + len(cur_term))]: 
+                    print('found ', cur_term)
+                    print('modifier is ', self._modifier_handler.get_modifier(sent_idx, word_idx))
+                    cur_idx += 1
+                    if cur_idx < len(doc.entities):
+                        cur_term = doc.entities[cur_idx].text.split(' ')
+
+                
+
+        ''' 
         # Loop through all the entities found in the text.
         for ent in doc.entities:
             # Construct a set of cleaned words from entity.
@@ -38,4 +54,5 @@ class MimicFeatureExtractor(FeatureExtractor):
                 # If all words are found then this is likley to be a valid feature.
                 if valid_feature and len(feature) > 0:
                     result.append(' '.join(feature))
+        '''
         return result

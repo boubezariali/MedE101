@@ -10,12 +10,13 @@ class FeatureExtractor(ABC):
     object that parses text and outputs a list of features it finds using 
     a specific technique.
     """
-    def __init__(self, keyword_handler):
+    def __init__(self, keyword_handler, modifier_handler):
         """Initializes the core funtionality using the KeywordHandler.
         Args:
            keyword_handler: KeywordHandler 
         """
         self._keyword_handler = keyword_handler
+        self._modifier_handler = modifier_handler
 
     @abstractmethod
     def get_features(self, text):
