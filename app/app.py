@@ -1,6 +1,5 @@
 # app.py
 from flask import Flask, jsonify, redirect, render_template, request
-
 from helpers import testHelper
 
 app = Flask(__name__)

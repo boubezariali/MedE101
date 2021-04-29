@@ -1,6 +1,6 @@
 /*home.jsx*/
 import React from "react";
-import { Container, Header, Button, Card } from 'semantic-ui-react';
+import { Container, Button, Card } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 
 const MainPage = () => {
@@ -13,8 +13,8 @@ const MainPage = () => {
                         <Card.Description>Enter either Game Mode or Diagnosis Mode</Card.Description>
                     </Card.Content>
                     <Card.Content extra>
-                        <Button><Link to="/diagnosis">Diagnosis Mode</Link></Button>
-                        <Button><Link to="/game">Game Mode</Link></Button>
+                        <Link to="/diagnosis"><Button>Diagnosis Mode</Button></Link>
+                        <Link to="/game"><Button>Game Mode</Button></Link>
                     </Card.Content>
                 </Card>
 
