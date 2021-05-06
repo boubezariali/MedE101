@@ -33,26 +33,27 @@ class MimicFeatureExtractor(FeatureExtractor):
                     if cur_idx < len(doc.entities):
                         cur_term = doc.entities[cur_idx].text.split(' ')
 
-                
+                        cur_term = remove_stopstrings(words, self._keyword_handler.stopwords)
+                        cur_term = [remove_stopchars(word, self._keyword_handler.punctuation) for word in words]
+                        cur_term = [stem(word) for word in words]
+                        term_set = set(cur_term)
 
-        ''' 
-        # Loop through all the entities found in the text.
-        for ent in doc.entities:
-            # Construct a set of cleaned words from entity.
-            words = ent.text.split(' ')
-            words = remove_stopstrings(words, self._keyword_handler.stopwords)
-            words = [remove_stopchars(word, self._keyword_handler.punctuation) for word in words]
-            words = [stem(word) for word in words]
-            words_set = set(words)
-            # Loop through all our stored clinical features.
-            for feature in self._keyword_handler.keywords:
-                # Check that all the words in the feature are in the set.
-                valid_feature = True
-                for word in feature:
-                    if word not in words_set:
-                        valid_feature = False
-                # If all words are found then this is likley to be a valid feature.
-                if valid_feature and len(feature) > 0:
-                    result.append(' '.join(feature))
-        '''
+                        found_feature = self.find_feature(term_set)
+                        if found_feature:
+                            self._keyword_handler.set(found_feature)
         return result
+
+    def find_feature(self, words_set):
+        # Loop through all our stored clinical features.
+        for feature in self._keyword_handler.keywords:
+            # Check that all the words in the feature are in the set.
+            valid_feature = True
+            for word in feature:
+                if word not in words_set:
+                    valid_feature = False
+            # If all words are found then this is likley to be a valid feature.
+            if valid_feature and len(feature) > 0:
+                return feature
+        return None
+        
+

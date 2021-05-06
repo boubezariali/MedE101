@@ -30,6 +30,4 @@ class DataModule:
         feature_extractors = self._data_model.get_feature_extractors()
         result = set()
         for feature_extractor in feature_extractors:
-            for term in feature_extractor.get_features(text):
-                result.add(term)
-        return result
+            feature_extractor.get_features(text)
