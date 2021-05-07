@@ -37,12 +37,11 @@ class KeywordHandler:
             feature = set(words)
             columns.append(self._get_feature_hash(feature))
             self._contents.append(feature)
+
         glog.info("Load data complete.")
 
         # Initialize data point:
         self._data_point = DataFrame(data=data, columns=columns, dtype=bool)
-
-        print(self._data_point)
 
     def _get_feature_hash(self, feature):
         feature_string = '@'.join(feature)
@@ -52,7 +51,7 @@ class KeywordHandler:
         # Test that it exists:
         loc = self._data_point.loc[0, self._get_feature_hash(feature)]
         # Set the point.
-        self._data_point[0, self._get_feature_hash(feature)] = val
+        self._data_point.at[0, self._get_feature_hash(feature)] = val
 
     @property
     def keywords(self):

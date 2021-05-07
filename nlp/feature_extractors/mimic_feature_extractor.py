@@ -18,8 +18,6 @@ class MimicFeatureExtractor(FeatureExtractor):
             package='mimic', processors={'ner': 'i2b2'}, download=False
         )
         doc = nlp(text)
-        result = []
-
         cur_idx = 0
         cur_term = doc.entities[cur_idx].text.split(' ')
         for sent_idx, sentence in enumerate(doc.sentences):
@@ -27,21 +25,17 @@ class MimicFeatureExtractor(FeatureExtractor):
 
             for word_idx, word in enumerate(words):
                 if word_idx + len(cur_term) <= len(words) and cur_term == words[word_idx:(word_idx + len(cur_term))]: 
-                    print('found ', cur_term)
-                    print('modifier is ', self._modifier_handler.get_modifier(sent_idx, word_idx))
-                    cur_idx += 1
                     if cur_idx < len(doc.entities):
                         cur_term = doc.entities[cur_idx].text.split(' ')
-
                         cur_term = remove_stopstrings(words, self._keyword_handler.stopwords)
                         cur_term = [remove_stopchars(word, self._keyword_handler.punctuation) for word in words]
                         cur_term = [stem(word) for word in words]
                         term_set = set(cur_term)
-
                         found_feature = self.find_feature(term_set)
                         if found_feature:
-                            self._keyword_handler.set(found_feature)
-        return result
+                            positive = 'neg' not in self._modifier_handler.get_modifier(sent_idx, word_idx)
+                            self._keyword_handler.set(found_feature, val=positive)
+                    cur_idx += 1
 
     def find_feature(self, words_set):
         # Loop through all our stored clinical features.

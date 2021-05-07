@@ -20,6 +20,7 @@ class NegationModifierExtractor(ModifierExtractor):
 
     def get_modifiers(self, text):
         """ text - string of text document """
+
         nlp = get_stanza_model(processors='tokenize', download=False)
         doc = nlp(text) 
         result = []

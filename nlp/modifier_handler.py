@@ -35,7 +35,7 @@ class ModifierHandler:
         """
         if (sent_idx, word_idx) in self._modifiers:
             return self._modifiers[sent_idx, word_idx]
-        return []
+        return set()
 
     @property
     def modifiers(self):

@@ -19,15 +19,15 @@ class DataModule:
     def generate_features(self):
         """ Generates a set of unique features from all the feature extractors of the 
         data model.
-
-        Returns: 
-            set of unique features.
         """
 
         with open(self._text_path) as f:
             text = f.read()
 
+        modifier_extractors = self._data_model.get_modifier_extractors()
+        for modifier_extractor in modifier_extractors:
+            modifier_extractor.get_modifiers(text)
+
         feature_extractors = self._data_model.get_feature_extractors()
-        result = set()
         for feature_extractor in feature_extractors:
             feature_extractor.get_features(text)

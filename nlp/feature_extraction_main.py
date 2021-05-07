@@ -19,8 +19,7 @@ def main():
 
     model = ComprehensiveDataModel()
     module = DataModule(model, args.input_text)
-    features = module.generate_features()
-    print(features)
+    module.generate_features()
 
 
 if __name__ == "__main__":
