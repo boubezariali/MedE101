@@ -12,6 +12,9 @@ class DataModel(ABC):
     in charge of storing & returning these feature extractors.
     """
     def __init__(self):
+        """ Initialize the keyword handler and modifier handler to 
+        write information to using the extractors. 
+        """
         self._modifier_handler = ModifierHandler()
         self._keyword_handler = KeywordHandler()
     
