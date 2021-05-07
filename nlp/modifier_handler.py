@@ -11,7 +11,7 @@ class ModifierHandler:
 
     def __init__(self):
         # Initialize the map such that each word represents a list.
-        self._modifiers = defaultdict(list)
+        self._modifiers = defaultdict(set)
 
     def add_modifier(self, sent_idx, word_idx, modifier):
         """ Add a modifier to a word.
@@ -21,7 +21,7 @@ class ModifierHandler:
             word_idx: int identifying the word within the sentence.
             modifier: string modifier.
         """
-        self._modifiers[(sent_idx, word_idx)].append(modifier)
+        self._modifiers[(sent_idx, word_idx)].add(modifier)
 
     def get_modifier(self, sent_idx, word_idx):
         """ Access the modifiers of a word.
@@ -35,7 +35,7 @@ class ModifierHandler:
         """
         if (sent_idx, word_idx) in self._modifiers:
             return self._modifiers[sent_idx, word_idx]
-        return []
+        return set()
 
     @property
     def modifiers(self):
